@@ -1,7 +1,7 @@
 # Handles player and scene locations
 from random import randint, choice
 from game_objects import Player
-from math import sqrt, atan2, degrees
+from math import sqrt, atan2, degrees, sin, cos, pi
 
 
 class Map(object):
@@ -32,7 +32,7 @@ class Map(object):
     def select_object(self):
         """Uses randint to determine presence or absence of an object
         at a given coordinate when called by populate_grid."""
-        if randint(0, 100) < (self.density*100):
+        if randint(0, 10000) < (self.density*10000):
             return choice(self.objects)
         else:
             return '-'
@@ -50,9 +50,6 @@ class Map(object):
         for e in objs.keys():
             if pos == e:
                 return pos, objs[e]
-
-    def get_player_info(self):
-        return self.player
 
     def render_grid(self):
         """Renders the objects in the grid as a formatted string."""
@@ -99,7 +96,6 @@ class C(object):
 
     def cardinality(self, other):
         theta = self.theta(other)
-
         if theta <= 22.5:
             direction = "E"
         if 22.5 < theta <= 67.5:
@@ -130,11 +126,7 @@ class C(object):
         return str((self.x, self.y))
 
 
-#
-random_objects = ['A', 'B', 'C', 'D']
-p = Player("P", 100, ["item"], C(0, 0))
-s = Map(20, random_objects, 0.05)
-print(s.get_objects())
+
 #
 # print(s.get_player_inters())
 # print(s.get_player_info())
