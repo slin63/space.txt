@@ -15,7 +15,7 @@ class Map(object):
         self.objects = objects
         self.density = density
         self.player = player
-        self.grid = self.populate_grid(size)
+        self.grid = self.populate_grid(size)  # {Coordinate: object}
 
     def populate_grid(self, size):
         """Populates an empty dictionary with coordinate tuples
@@ -50,6 +50,7 @@ class Map(object):
         for e in objs.keys():
             if pos == e:
                 return pos, objs[e]
+        return 'space'
 
     def render_grid(self):
         """Renders the objects in the grid as a formatted string."""
@@ -125,22 +126,3 @@ class C(object):
     def __repr__(self):
         return str((self.x, self.y))
 
-
-
-#
-# print(s.get_player_inters())
-# print(s.get_player_info())
-#
-# p.change_position(0, 2)
-#
-# print(s.get_player_inters())
-# print(s.get_player_info())
-#
-# p.change_position(2, 0)
-#
-# print(s.get_player_inters())
-# print(s.get_player_info())
-#
-# grid = s.render_grid()
-#
-# print(grid)
