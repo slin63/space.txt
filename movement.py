@@ -1,8 +1,8 @@
 # Handles player and scene locations
-from random import randint, choice
-from game_objects import Player
-from math import sqrt, atan2, degrees, sin, cos, pi
 
+from game_objects import *
+
+# ------------------------------------------------- Overworld --------------------------------------------------- #
 
 class Map(object):
     """Object representing both the overworld map and the superclass of unique locations
@@ -69,6 +69,7 @@ class Map(object):
 
         return grid_s
 
+# ------------------------------------------------ Coordinate Class -------------------------------------------------- #
 
 class C(object):
     def __init__(self, x, y):
@@ -78,6 +79,8 @@ class C(object):
     def d_pos(self, dx, dy):
         self.x += dx
         self.y += dy
+        self.x = int(self.x)
+        self.y = int(self.y)
 
     def get_x(self):
         return self.x
@@ -97,6 +100,7 @@ class C(object):
 
     def cardinality(self, other):
         theta = self.theta(other)
+        direction = ''
         if theta <= 22.5:
             direction = "E"
         if 22.5 < theta <= 67.5:

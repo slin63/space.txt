@@ -1,41 +1,51 @@
 from game_tools import *
-from dialogues import *
+from time import time
+
 
 random_objects = [
-    'ObjA', 'ObjB', 'ObjC', 'ObjD', 'ObjE', 'ObjF', 'ObjG', 'ObjH', 'ObjI'
+    Wreckage(), Star(), Planet(), Artifact()
 ]
 
 
 def main(map_size, density):
     p = Player("P", 100, ["item"], C(0,0))
+    start = time()
     s = Map(map_size, random_objects, density, player=p)
-    print(len(s.get_objects()))
+    end = time()
+    init_time = str(end - start)[0:3]
+    map_objects = s.get_objects()
+
+    print("# DEBUG : \n\tMAP_SIZE = %s x %s\n\tINIT_TIME = %s\n\tNUM_OBJECTS = %s\n\tSURROUNDINGS = %s\n"
+          % (map_size, map_size, init_time, len(map_objects), p.get_surroundings(s.player.vision, map_objects)))
+
     while 1 == 1:
         report_surroundings(s, s.player.vision)
         esc = True
+
         while esc:
-            ans = raw_input("Options:\n\tm - Move\n\tc - Check status\n\ti - Investigate\n\ts - Survey\n\t")
+            surroundings = s.player.get_surroundings(vision=s.player.vision, objects=map_objects)
+            # print(surroundings)
+
+            ans = raw_input("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate grid\n\ts - Survey\n\t")
             if ans.lower() == 'm':
                 direction = raw_input("Direction: ")
                 magnitude = raw_input("Distance: ")
                 d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
                 s.player.change_position(d_pos[0], d_pos[1])
-                print "Moving %s units %s." % (magnitude, direction.upper())
+                print("Moving %s units %s." % (magnitude, direction.upper()))
                 esc = False
             elif ans.lower() == 'c':
                 print("Fuel = %s, Position = %s" % (s.player.health, s.player.position))
             elif ans.lower() == 's':
                 report_surroundings(s, s.player.vision)
             elif ans.lower() == 'i':
-                if s.get_player_inters() == 'space':
-                    print(random_dialogue(investigate_space))
+                investigate(surroundings, s.player.vision)
 
-        # break
 
 p = Player("P", 100, ["item"], C(0,0))
 s = Map(5, random_objects, 0.05, player=p)
 
 
-main(500, 0.001)
+main(600, 0.001)
 
 

@@ -1,17 +1,25 @@
 from random import choice
 
+# -------------------------------------- Dialogue Selectors / Generators ------------------------------------------- #
+
+
 def random_dialogue(l):
     return choice(l)
 
+
+def make_border(length=50):
+    return ("-" * length)
+
+# -------------------------------------------- Dialogue Banks --------------------------------------------------- #
+
 investigate_space = [
-    "You check the sensors. Vast emptiness . . .",
+    "You check the sensors. Nothing within a sol's reach . . .",
     "You head to the deck. A faint glimmer in the distance, but nothing more . . . ",
-    "The cameras outside the ship buzz and whir. Star light and the vacuum . . . ",
-    "The shielding lifts from the glass. Shimmering lights and unchanging blackness . . . ",
+    "The cameras outside the ship buzz and whir. Only starlight and the vacuum . . . ",
+    "The shielding lifts from the glass. You observe shimmering lights and unchanging blackness . . . ",
     "You stare out into the darkness. You spot something in the dim, but quickly dismiss it . . . ",
     "You rest your head against the wall. The ship trembles as a heat sink is ejected and replaced with vacuum outside . . . "
 ]
-
 
 adjectives_large = [
     'extensive', 'immense', 'cavernous', 'vast', 'boundless', 'colossal', 'enormous', 'great', 'infinite', 'limitless',
@@ -28,5 +36,7 @@ adjectives_neg = [
     'discolored', 'faded', 'desecrated', 'degraded', 'vitriolic'
 ]
 
-adjectives_sta
+adjectives_planet_type = [
+    #TODO
+]
 

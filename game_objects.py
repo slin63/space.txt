@@ -1,3 +1,8 @@
+from math import sqrt, atan2, degrees, sin, cos, pi
+from random import randint, choice
+
+# ------------------------------------------------- Player Object --------------------------------------------------- #
+
 class Player(object):
     def __init__(self, name, health, inventory=None, position=None, vision=40):
         self.name = name
@@ -38,17 +43,83 @@ class Player(object):
 
     def __repr__(self):
         return str((self.x, self.y))
-#
-# obj_test = {
-#     C(0, 0): 'STAR322B', C(4, 15): 'WRECK', C(12, 5): 'SAT', C(6, 15): 'SAT', C(12, 14): 'STAR353A', C(2, 18): 'WRECK',
-#     C(14, 9): 'DEBRIS', C(10, 2): 'WRECK', C(13, 1): 'DEBRIS', C(12, 7): 'DEBRIS'
-# }
-#
-# p = Player("p", 100, position=C(4, 6))
-# print p.get_surroundings(8, obj_test)
-#
-# # a = C(0,0)
-# b = C(3,4)
-# print("Distance = %s" % a.distance(b))
-# print("Theta = %s" % a.theta(b))
-# print("Cardinality = %s" % a.cardinality(b))
+
+# ------------------------------------------------- Space Objects --------------------------------------------------- #
+
+class SpaceObject(object):
+    def __init__(self, name="SpaceObject", desc_vague="VagueDescription", desc_detailed="DetailedDescription"):
+        self.name = name
+        self.desc_vague = self.generate_desc_vague()
+        self.desc_detailed = self.generate_desc_detailed()
+
+    def get_desc_vague(self):
+        return self.desc_vague
+
+    def get_desc_detailed(self):
+        return self.desc_detailed
+
+    def generate_desc_vague(self):
+        # raise NotImplementedError
+        pass
+
+    def generate_desc_detailed(self):
+        # raise NotImplementedError
+        pass
+
+    def get_name(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+
+class Planet(SpaceObject):
+    def __init__(self, name="Planet"):
+        super(Planet, self).__init__(name=name)
+
+    def generate_desc_vague(self):
+        ## TODO
+        pass
+
+    def generate_desc_detailed(self):
+        ## TODO
+        pass
+
+
+class Star(SpaceObject):
+    def __init__(self, name="Star"):
+        super(Star, self).__init__(name=name)
+
+    def generate_desc_vague(self):
+        ## TODO
+        pass
+
+    def generate_desc_detailed(self):
+        ## TODO
+        pass
+
+
+class Artifact(SpaceObject):
+    def __init__(self, name="Artifact"):
+        super(Artifact, self).__init__(name=name)
+
+    def generate_desc_vague(self):
+        ## TODO
+        pass
+
+    def generate_desc_detailed(self):
+        ## TODO
+        pass
+
+
+class Wreckage(SpaceObject):
+    def __init__(self, name="Wreckage"):
+        super(Wreckage, self).__init__(name=name)
+
+    def generate_desc_vague(self):
+        ## TODO
+        pass
+
+    def generate_desc_detailed(self):
+        ## TODO
+        pass
