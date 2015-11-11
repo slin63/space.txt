@@ -5,6 +5,14 @@ from dialogues import *
 # ----------------------------------- Player control functions ---------------------------------------- #
 
 
+def player_move(map):
+    direction = raw_input("Direction: ")
+    magnitude = raw_input("Distance: ")
+    d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
+    map.player.change_position(d_pos[0], d_pos[1])
+    print("Moving %s units %s." % (magnitude, direction.upper()))
+
+
 def report_surroundings(mapobj, vision):
     """Prints out a nice summary of the objects within vision of the player."""
     surr = mapobj.player.get_surroundings(vision, mapobj.get_objects())
@@ -48,6 +56,7 @@ def investigate(surroundings, vision):
         print("%s\n%s\n%s" % (make_border(), ans_obj[0].desc_detailed, make_border()))
     else:
         print("%s\n%s\n%s" % (make_border(), ans_obj[0].desc_vague, make_border()))
+
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 

@@ -2,9 +2,9 @@ from game_tools import *
 from time import time
 
 
-random_objects = [
-    Wreckage(), Star(), Planet(), Artifact()
-]
+# random_objects = [Wreckage(), Star(), Planet(), Artifact()]
+
+random_objects = [SpaceObject()]
 
 
 def main(map_size, density):
@@ -27,12 +27,9 @@ def main(map_size, density):
             # print(surroundings)
 
             ans = raw_input("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate grid\n\ts - Survey\n\t")
+
             if ans.lower() == 'm':
-                direction = raw_input("Direction: ")
-                magnitude = raw_input("Distance: ")
-                d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
-                s.player.change_position(d_pos[0], d_pos[1])
-                print("Moving %s units %s." % (magnitude, direction.upper()))
+                player_move(s)
                 esc = False
             elif ans.lower() == 'c':
                 print("Fuel = %s, Position = %s" % (s.player.health, s.player.position))
