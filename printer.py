@@ -1,13 +1,13 @@
 import sys
 import time
 
-def cprint(string):
+
+def cprint(string, t=0.04):
     for char in string:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(.03)
+        time.sleep(t)
+    print ''
 
 
-string = 'Formless, yet lovingly shaped . . .'
 
-cprint(string)

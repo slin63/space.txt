@@ -126,24 +126,6 @@ class C(object):
                 direction = "SW"
             if 157.5 < theta <= 180:
                 direction = "W"
-        # if theta <= 22.5:
-        #     direction = "E"
-        # if 22.5 < theta <= 67.5:
-        #     direction = "NE"
-        # if 67.5 < theta <= 112.5:
-        #     direction = "N"
-        # if 112.5 < theta <= 157.5:
-        #     direction = "NW"
-        # if 157.5 < theta <= 202.5:
-        #     direction = "W"
-        # if 202.5 < theta <= 247.5:
-        #     direction = "SW"
-        # if 247.5 < theta <= 292.5:
-        #     direction = "S"
-        # if 292.5 < theta <= 337.5:
-        #     direction = "SE"
-        # if 337.5 < theta:
-        #     direction = "E"
         return direction
 
     def __str__(self):
@@ -154,8 +136,3 @@ class C(object):
 
     def __repr__(self):
         return str((self.x, self.y))
-#
-# a = Player('a', 100, position=C(0,0))
-# b = Player('b', 100, position=C(0,-1))
-#
-# print a.position.cardinality(b.position)

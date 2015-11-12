@@ -1,4 +1,5 @@
 from movement import *
+from printer import cprint
 
 
 # ----------------------------------- Player control functions ---------------------------------------- #
@@ -9,12 +10,16 @@ def move_player(mapobj):
     magnitude = raw_input("Distance: ")
     d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
     mapobj.player.change_position(d_pos[0], d_pos[1])
-    print("Moving %s units %s." % (magnitude, direction.upper()))
+    sleep(0.5)
+    cprint("Moving %s units %s." % (magnitude, direction.upper()))
+    brief_pause()
     return 0
 
 
 def report_status(mapobj):
-    print("Fuel = %s, Position = %s" % (mapobj.player.health, mapobj.player.position))
+    sleep(0.5)
+    cprint("Fuel = %s, Position = %s" % (mapobj.player.health, mapobj.player.position))
+    brief_pause()
     return 0
 
 
@@ -25,31 +30,37 @@ def report_surroundings(mapobj, vision):
     num_objs = len(surr)
     count = 1
     print("%s point(s) of interest nearby . . . " % num_objs)
+    sleep(0.5)
     for obj in surr:
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
-        if distance == "same grid":
-            print("\t%s. Located on current grid." % count)
+        if distance.lower() == "same grid":
+            cprint(string=("\t%s. Located on current grid." % count), t=0.03)
         elif distance == "Barely detectable":
-            print("\t%s. %s: %s(?)" % (count, distance, direction))
+            cprint(string=("\t%s. %s: %s(?)" % (count, distance, direction)), t=0.03)
         else:
-            print("\t%s. %s: %s" % (count, distance, direction))
+            cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.03)
         count += 1
+    brief_pause()
     return 0
 
 
 def investigate(surroundings, vision):
     count = 1
     if len(surroundings) == 0:  # When there's nothing around but empty space
-        print("%s\n%s\n%s" % (make_border(), random_dialogue(investigate_space), make_border()))
+        sleep(0.5)
+        print make_border()
+        cprint(string=random_dialogue(investigate_space), t=0.03)
+        print make_border()
+        brief_pause()
         return 0
 
-    print("Select an object:")
+    cprint("Select an object:")
 
     for obj in surroundings:
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
-        print("\t%s. %s: %s" % (count, distance, direction))
+        cprint(string=("\t%s. %s: %s" % (count, distance, direction)))
         count += 1
 
     print(make_border())
@@ -58,11 +69,28 @@ def investigate(surroundings, vision):
 
     ans_obj = surroundings[int(ans)-1]
     if ans_obj[1] == 0:
-        print("%s\n%s\n%s" % (make_border(), ans_obj[0].inspect_detailed(), make_border()))
+        sleep(0.5)
+        print make_border()
+        cprint(string=ans_obj[0].inspect_detailed(), t=0.03)
+        print make_border()
+        brief_pause()
     else:
-        print("%s\n%s\n%s" % (make_border(), ans_obj[0].inspect_vague(), make_border()))
+        sleep(0.5)
+        print make_border()
+        cprint(string=ans_obj[0].inspect_vague(), t=0.03)
+        print make_border()
+        brief_pause()
     return 0
 
+
+def report_personal_status(world):
+    ## TODO
+    pass
+
+
+def player_sleep(world):
+    ## TODO
+    pass
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 
@@ -78,7 +106,7 @@ def evaluate_distance(distance, vision):
     if 0 < ratio <= 0.3:
         return "Visibly near"
     if ratio == 0:
-        return "same grid"
+        return "Same grid"
 
 
 def cardinal_to_dp(card, d_pos):

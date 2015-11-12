@@ -1,10 +1,21 @@
 from random import choice as ch
+from time import sleep
+from os import system, name
 
 # -------------------------------------- Dialogue Selectors / Generators ------------------------------------------- #
 
 
 def random_dialogue(l):
     return ch(l)
+
+
+def cls():
+    system('cls' if name == 'nt' else 'clear')
+
+
+def brief_pause(string="Enter to continue . . . "):
+    raw_input(string)
+    return 0
 
 
 def make_border(length=50):
@@ -38,7 +49,8 @@ investigate_space = [
 
 adj_large = [
     'extensive', 'immense', 'cavernous', 'vast', 'boundless', 'colossal', 'enormous', 'great', 'infinite', 'limitless',
-    'mammoth', 'tremendous', 'capacious'
+    'mammoth', 'tremendous', 'capacious', 'gigantic', 'behemoth', 'cyclopean', 'elephantine', 'gross', 'immeasurable',
+    'titanic', 'mountainous', 'leviathan', 'towering', 'perpetual', 'unending', 'inexhaustible', 'incalculable'
 ]
 
 adj_pos = [
@@ -49,7 +61,8 @@ adj_pos = [
 
 adj_neg = [
     'blemished', 'sullied', 'debased', 'tainted', 'tarnished', 'blackened', 'tarred', 'besmirched', 'defiled',
-    'discolored', 'faded', 'desecrated', 'degraded', 'vitriolic'
+    'discolored', 'faded', 'desecrated', 'degraded', 'vitriolic', 'grisly', 'hideous', 'horrid', 'revolting',
+    'misshapen', 'deformed', 'disfigured', 'foul', 'distorted', 'mutilated'
 ]
 
 adj_strange = [
@@ -104,7 +117,5 @@ desc_artifact_vague = {
         (ch(adj_neg), ch(adj_neg), ch(adj_large), ch(adj_pos))
 }
 
-#
-print generate_dialogue((desc_artifact_header, desc_artifact_vague))
-
-print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
+# print generate_dialogue((desc_artifact_header, desc_artifact_vague))
+# print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
