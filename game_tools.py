@@ -1,5 +1,4 @@
 from movement import *
-from printer import cprint
 
 
 # ----------------------------------- Player control functions ---------------------------------------- #
@@ -35,11 +34,11 @@ def report_surroundings(mapobj, vision):
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
         if distance.lower() == "same grid":
-            cprint(string=("\t%s. Located on current grid." % count), t=0.03)
+            cprint(string=("\t%s. Located on current grid." % count), t=0.022)
         elif distance == "Barely detectable":
-            cprint(string=("\t%s. %s: %s(?)" % (count, distance, direction)), t=0.03)
+            cprint(string=("\t%s. %s: %s(?)" % (count, distance, direction)), t=0.022)
         else:
-            cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.03)
+            cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.022)
         count += 1
     brief_pause()
     return 0
@@ -60,7 +59,7 @@ def investigate(surroundings, vision):
     for obj in surroundings:
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
-        cprint(string=("\t%s. %s: %s" % (count, distance, direction)))
+        cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.022)
         count += 1
 
     print(make_border())

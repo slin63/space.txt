@@ -22,6 +22,18 @@ def make_border(length=50):
     return "-" * length
 
 
+def generate_name(letters=5, numbers=3):
+    name = ''
+    letterl = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    numberl = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    for i in xrange(letters):
+        name += (ch(letterl).upper())
+    for j in xrange(numbers):
+        name += (ch(numberl))
+    return str(name)
+
+
+
 def generate_dialogue(dialogue_tup):
     gen = ''
 
@@ -82,6 +94,11 @@ adjectives_lists = [
 # -------------------------------------------- Description Banks --------------------------------------------------- #
 
 
+desc_artifact_name = {
+
+}
+
+
 desc_artifact_header = {
     "A cabalistic anomaly . . . ": '',
     "Esoteric in nature and insatiable in its abnormality . . . ": '',
@@ -89,16 +106,38 @@ desc_artifact_header = {
 }
 
 desc_artifact_detailed = {
-    "You approach the object. "
+    "You approach the object. Your ship reaches out to it. "
     "Upon closer inspection you see that it is detailed with %s scripture, incomprehensible, yet "
     "%s in its scrawl. It spews %s amounts of radiation and heat from the %s cracks that line its surface. "
     "Although its initial signature seemed %s, you are surprised to find that it is no larger than a small child. ":
         (ch(adj_strange), ch(adj_pos), ch(adj_large), ch(adj_neg), ch(adj_large)),
-    "You have arrived. You search for the %s anomaly but instead find a shapeless and %s mass, no larger than a small "
+    "You have arrived. The ship searches for the %s anomaly but instead find a shapeless and %s mass, no larger than a small "
     "child. It rotates furiously, emitting %s beams of light as it spins. From time to time, the object "
     "suddenly pivots about an axis, dancing in a %s manner. You are terrified to find that your sensors indicate that "
     "the object is emitting sound waves in what should be a total vacuum. ":
-        (ch(adj_large), ch(adj_strange), ch(adj_pos), ch(adj_strange))
+        (ch(adj_large), ch(adj_strange), ch(adj_pos), ch(adj_strange)),
+    "You approach the object. "
+    "Your hands sweat profusely and your heart races wildly without reason. Your ship's "
+    "lights illuminate the object's surface, revealing the %s and %s warts that encrust it entirely. Each blemish "
+    "undulates rhythmically, emitting %s trails of heat and radiation with each fluctuation. Although the object "
+    "is no larger than a baby's crib, all the space behind it is a thick and %s blackness. ":
+        (ch(adj_large), ch(adj_neg), ch(adj_pos), ch(adj_strange)),
+    "You approach the object. "
+    "Your ship tries its best to align its lights and sensors on the object, but struggles. After waiting for "
+    "several hours, you realize why. The object is a perfect sphere, shaped with %s and %s precision. "
+    "In its reflection you spot something %s. Its %s figure speaks of some %s nature and %s intent. "
+    "The very thought of it fills you with %s dread. "
+    "The sphere's %s surface constantly rises and falls, as if the stomach of a sleeping child. ":
+        (ch(adj_pos), ch(adj_strange), ch(adj_large), ch(adj_strange), ch(adj_neg), ch(adj_pos), ch(adj_strange), ch(adj_pos)),
+    "Your ship closes the distance between itself and the object. The lights inside the cabin flicker rhythmically. "
+    "The ship illuminates the object and reveals a familiar, yet %s sight. It is an escape pod from a well-known "
+    "line of mining ships. There is room for a single occupant. You align the %s signals you detected earlier with "
+    "the distress signals being emitted from the pod. You note something %s. "
+    "The exhaust ports of the pod's life support system are dotted with %s streams of an unknown liquid. "
+    "Your ship detects %s amounts of radiation being emitted from the center of the pod. "
+    "The pods are designed to support its users for up to two weeks. The distress signal indicates its age to be more "
+    "than two centuries old. ":
+        (ch(adj_strange), ch(adj_strange), ch(adj_strange), ch(adj_large), ch(adj_large))
 }
 
 desc_artifact_footer = {
@@ -119,3 +158,5 @@ desc_artifact_vague = {
 
 # print generate_dialogue((desc_artifact_header, desc_artifact_vague))
 # print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
+
+# print generate_name()

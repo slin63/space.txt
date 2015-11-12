@@ -25,7 +25,7 @@ def main(map_size, density, object_base, debug=False):
 
             # cls()
 
-            cprint("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate grid\n\ts - Survey\n\t"
+            cprint("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate objects\n\ts - Survey\n\t"
                    "p - Check personal status\n\tz - Sleep\n\td - Die", 0.01)
             ans = raw_input()
 
@@ -57,9 +57,9 @@ if __name__ == "__main__":
     cprint("EGG-SPACE.TXT 0.11.12")
     main(
         map_size=2,
-        density=0.5,
+        density=1,
         object_base=random_objects,
-        debug=True
+        debug=False
     )
 
 

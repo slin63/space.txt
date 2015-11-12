@@ -1,6 +1,8 @@
 from math import sqrt, atan2, degrees, sin, cos, pi
 from random import randint, choice
 from dialogues import *
+from printer import cprint
+
 
 # ------------------------------------------------- Player Object --------------------------------------------------- #
 
@@ -49,8 +51,8 @@ class Player(object):
 # ------------------------------------------------- Space Objects --------------------------------------------------- #
 
 class SpaceObject(object):
-    def __init__(self, name, desc_vague=None, desc_detailed=None, scene=None):
-        self.name = name
+    def __init__(self, name=None, desc_vague=None, desc_detailed=None, scene=None):
+        self.name = self.generate_name()
         self.header = self.generate_header()
         self.desc_vague = self.generate_desc_vague()
         self.desc_detailed = self.generate_desc_detailed()
@@ -58,10 +60,19 @@ class SpaceObject(object):
         self.scene = scene
 
     def inspect_vague(self):
+        cprint(string=("OBJ - ID: " + self.name), t=0.20)
+        cprint(string='. . . . . ', t=0.30)
+        sleep(0.2)
         return (self.header +'\n'+ self.desc_vague)
 
     def inspect_detailed(self):
+        cprint(string=("ID: " + self.name), t=0.20)
+        cprint(string='. . . . . ', t=0.30)
+        sleep(0.2)
         return self.header +'\n'+ self.desc_detailed +'\n'+ self.footer
+
+    def generate_name(self):
+        raise NotImplementedError
 
     def generate_header(self):
         raise NotImplementedError
@@ -91,6 +102,9 @@ class SpaceObject(object):
 class Artifact(SpaceObject):
     def __init__(self, name="Artifact"):
         super(Artifact, self).__init__(name=name)
+
+    def generate_name(self):
+        return generate_name(4, 4)
 
     def generate_header(self):
         return generate_dialogue((desc_artifact_header,))
