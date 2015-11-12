@@ -28,7 +28,7 @@ def generate_dialogue(dialogue_tup):
 
 
 investigate_space = [
-    "You check the sensors. Nothing within a sol's reach . . .",
+    "You check the sensors. Nothing within a waking day's reach . . .",
     "You head to the deck. A faint glimmer in the distance, but nothing more . . . ",
     "The cameras outside the ship buzz and whir. Only starlight and the vacuum . . . ",
     "The shielding lifts from the glass. You observe shimmering lights and unchanging blackness . . . ",
@@ -77,12 +77,12 @@ desc_artifact_header = {
 
 desc_artifact_detailed = {
     "You approach the object. "
-    "Upon closer inspection you see that it is detailed with %s scripture, incomprehensible yet "
+    "Upon closer inspection you see that it is detailed with %s scripture, incomprehensible, yet "
     "%s in its scrawl. It spews %s amounts of radiation and heat from the %s cracks that line its surface. "
     "Although its initial signature seemed %s, you are surprised to find that it is no larger than a small child. ":
         (ch(adj_strange), ch(adj_pos), ch(adj_large), ch(adj_neg), ch(adj_large)),
     "You have arrived. You search for the %s anomaly but instead find a shapeless and %s mass, no larger than a small "
-    "child. It rotates furiously, emitting %s beams of light as it whirls mindlessly. From time to time, the object "
+    "child. It rotates furiously, emitting %s beams of light as it spins. From time to time, the object "
     "suddenly pivots about an axis, dancing in a %s manner. You are terrified to find that your sensors indicate that "
     "the object is emitting sound waves in what should be a total vacuum. ":
         (ch(adj_large), ch(adj_strange), ch(adj_pos), ch(adj_strange))
@@ -91,7 +91,7 @@ desc_artifact_detailed = {
 desc_artifact_footer = {
     "A dark wind pours from its core. ": '',
     "A warm, deep hum fills the ship. ": '',
-    "A strange and cacophonic sound rings in your ears. ": '',
+    "A strange cacophony of sounds rings in your ears. ": '',
     "You think of home. ": ''
 }
 
@@ -105,6 +105,6 @@ desc_artifact_vague = {
 }
 
 #
-# print generate_dialogue((desc_artifact_header, desc_artifact_vague))
-#
-# print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
+print generate_dialogue((desc_artifact_header, desc_artifact_vague))
+
+print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))

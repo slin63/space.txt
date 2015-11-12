@@ -1,7 +1,7 @@
 from game_tools import *
 from time import time
 
-## TODO: WORKING TITLE == "EGG SPACE"
+
 
 # random_objects = [Wreckage(), Star(), Planet(), Artifact()]
 
@@ -44,6 +44,6 @@ p = Player("P", 100, ["item"], C(0,0))
 s = Map(5, random_objects, 0.05, player=p)
 
 
-main(20, 0.005)
+main(2, 1)
 
 
