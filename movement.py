@@ -4,6 +4,7 @@ from game_objects import *
 
 # ------------------------------------------------- Overworld --------------------------------------------------- #
 
+
 class Map(object):
     """Object representing both the overworld map and the superclass of unique locations
     within the overworld."""
@@ -33,7 +34,7 @@ class Map(object):
         """Uses randint to determine presence or absence of an object
         at a given coordinate when called by populate_grid."""
         if randint(0, 10000) < (self.density*10000):
-            return choice(self.objects)
+            return choice(self.objects)()
         else:
             return '-'
 
@@ -100,25 +101,49 @@ class C(object):
 
     def cardinality(self, other):
         theta = self.theta(other)
+        # print('new theta = %s' % theta)
         direction = ''
-        if theta <= 22.5:
-            direction = "E"
-        if 22.5 < theta <= 67.5:
-            direction = "NE"
-        if 67.5 < theta <= 112.5:
-            direction = "N"
-        if 112.5 < theta <= 157.5:
-            direction = "NW"
-        if 157.5 < theta <= 202.5:
-            direction = "W"
-        if 202.5 < theta <= 247.5:
-            direction = "SW"
-        if 247.5 < theta <= 292.5:
-            direction = "S"
-        if 292.5 < theta <= 337.5:
-            direction = "SE"
-        if 337.5 < theta:
-            direction = "E"
+        if theta > 0:
+            if theta <= 22.5:
+                direction = "E"
+            if 22.5 < theta <= 67.5:
+                direction = "NE"
+            if 67.5 < theta <= 112.5:
+                direction = "N"
+            if 112.5 < theta <= 157.5:
+                direction = "NW"
+            if 157.5 < theta <= 180:
+                direction = "W"
+        elif theta <= 0:
+            theta = abs(theta)
+            if theta <= 22.5:
+                direction = "E"
+            if 22.5 < theta <= 67.5:
+                direction = "SE"
+            if 67.5 < theta <= 112.5:
+                direction = "S"
+            if 112.5 < theta <= 157.5:
+                direction = "SW"
+            if 157.5 < theta <= 180:
+                direction = "W"
+        # if theta <= 22.5:
+        #     direction = "E"
+        # if 22.5 < theta <= 67.5:
+        #     direction = "NE"
+        # if 67.5 < theta <= 112.5:
+        #     direction = "N"
+        # if 112.5 < theta <= 157.5:
+        #     direction = "NW"
+        # if 157.5 < theta <= 202.5:
+        #     direction = "W"
+        # if 202.5 < theta <= 247.5:
+        #     direction = "SW"
+        # if 247.5 < theta <= 292.5:
+        #     direction = "S"
+        # if 292.5 < theta <= 337.5:
+        #     direction = "SE"
+        # if 337.5 < theta:
+        #     direction = "E"
         return direction
 
     def __str__(self):
@@ -129,4 +154,8 @@ class C(object):
 
     def __repr__(self):
         return str((self.x, self.y))
-
+#
+# a = Player('a', 100, position=C(0,0))
+# b = Player('b', 100, position=C(0,-1))
+#
+# print a.position.cardinality(b.position)

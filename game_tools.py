@@ -1,16 +1,21 @@
 from movement import *
-from dialogues import *
 
 
 # ----------------------------------- Player control functions ---------------------------------------- #
 
 
-def player_move(map):
+def move_player(mapobj):
     direction = raw_input("Direction: ")
     magnitude = raw_input("Distance: ")
     d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
-    map.player.change_position(d_pos[0], d_pos[1])
+    mapobj.player.change_position(d_pos[0], d_pos[1])
     print("Moving %s units %s." % (magnitude, direction.upper()))
+    return 0
+
+
+def report_status(mapobj):
+    print("Fuel = %s, Position = %s" % (mapobj.player.health, mapobj.player.position))
+    return 0
 
 
 def report_surroundings(mapobj, vision):
@@ -30,7 +35,7 @@ def report_surroundings(mapobj, vision):
         else:
             print("\t%s. %s: %s" % (count, distance, direction))
         count += 1
-    pass
+    return 0
 
 
 def investigate(surroundings, vision):
@@ -53,9 +58,10 @@ def investigate(surroundings, vision):
 
     ans_obj = surroundings[int(ans)-1]
     if ans_obj[1] == 0:
-        print("%s\n%s\n%s" % (make_border(), ans_obj[0].desc_detailed, make_border()))
+        print("%s\n%s\n%s" % (make_border(), ans_obj[0].inspect_detailed(), make_border()))
     else:
-        print("%s\n%s\n%s" % (make_border(), ans_obj[0].desc_vague, make_border()))
+        print("%s\n%s\n%s" % (make_border(), ans_obj[0].inspect_vague(), make_border()))
+    return 0
 
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
