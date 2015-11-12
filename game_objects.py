@@ -48,6 +48,46 @@ class Player(object):
     def __repr__(self):
         return str((self.x, self.y))
 
+
+# ------------------------------------------------- Time Object ----------------------------------------------------- #
+
+
+class EggTime(object):
+    def __init__(self):
+        self.year = randint(2500, 3500)
+        self.month = randint(1, 12)
+        self.day = randint(1, 31)
+        self.time_elapsed = 0
+
+    def change_date(self, days):
+        cprint("%s days have passed." % days)
+        self.day += days
+        self.time_elapsed += days
+
+        while self.day > 31:
+            self.day -= 31
+            self.month += 1
+        while self.month > 12:
+            self.month -= 12
+            self.year += 1
+        return 0
+
+    def print_date(self):
+        cprint('It is currently the year %s, day %s of month %s.' % (self.year, self.day, self.month), 0.02)
+        return 0
+
+    def print_time_elapsed(self):
+        elapsed = days_to_date(self.time_elapsed)
+        years = elapsed[0]
+        months = elapsed[1]
+        days = elapsed[2]
+        cprint('It has been %s year(s), %s month(s), and %s day(s) since your epoch. ' % (years, months, days))
+        return 0
+
+    def __repr__(self):
+        return 'Year %s, day %s of month %s.' % (self.year, self.day, self.month)
+
+
 # ------------------------------------------------- Space Objects --------------------------------------------------- #
 
 class SpaceObject(object):
@@ -182,14 +222,5 @@ class Wreckage(SpaceObject):
         pass
 
 
-
-#
-# a = Artifact()
-# print a.inspect_vague()
-# print a.inspect_detailed()
-#
-# s = []
-# for e in xrange(10):
-#     s.append(Artifact())
-# for e in s:
-#     print e.inspect_vague()
+t = EggTime()
+# t.print_date()

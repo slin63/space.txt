@@ -17,6 +17,7 @@ class Map(object):
         self.density = density
         self.player = player
         self.grid = self.populate_grid(size)  # {Coordinate: object}
+        self.egg_time = EggTime()
 
     def populate_grid(self, size):
         """Populates an empty dictionary with coordinate tuples
@@ -70,7 +71,11 @@ class Map(object):
 
         return grid_s
 
+    def get_date(self):
+        self.egg_time.print_date()
+
 # ------------------------------------------------ Coordinate Class -------------------------------------------------- #
+
 
 class C(object):
     def __init__(self, x, y):

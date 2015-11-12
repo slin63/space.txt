@@ -15,10 +15,13 @@ def main(map_size, density, object_base, debug=False):
               % (map_size, map_size, init_time, len(map_objects), p.get_surroundings(world.player.vision, map_objects)))
 
     while 1 == 1:
-        report_surroundings(world, world.player.vision)
+
         esc = True
 
         while esc:
+
+            get_date(world)
+            report_surroundings(world, world.player.vision)
             surroundings = world.player.get_surroundings(vision=world.player.vision, objects=map_objects)
             # print(surroundings)
             # print(map_objects)
@@ -32,6 +35,7 @@ def main(map_size, density, object_base, debug=False):
             if ans.lower() == 'm':
                 move_player(world)
                 esc = False
+
             elif ans.lower() == 'c':
                 report_status(world)
             elif ans.lower() == 's':
@@ -43,7 +47,7 @@ def main(map_size, density, object_base, debug=False):
             elif ans.lower() == 'z':
                 player_sleep(world)
             elif ans.lower() == 'd':
-                cprint("You survived ##TODO days")
+                player_die(world)
                 brief_pause("Enter to exit . . .")
                 exit()
 
@@ -59,7 +63,7 @@ if __name__ == "__main__":
         map_size=2,
         density=1,
         object_base=random_objects,
-        debug=False
+        debug=False,
     )
 
 

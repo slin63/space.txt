@@ -22,16 +22,33 @@ def make_border(length=50):
     return "-" * length
 
 
+def days_to_date(days):
+    count_years = 0
+    count_months = 0
+    for i in xrange(100):
+        if days < 365:
+            break
+        days -= 365
+        count_years += 1
+
+    for i in xrange(100):
+        if days < 31:
+            break
+        days -= 31
+        count_months += 1
+    return count_years, count_months, days
+
+
 def generate_name(letters=5, numbers=3):
     name = ''
     letterl = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     numberl = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     for i in xrange(letters):
         name += (ch(letterl).upper())
+    name += '-'
     for j in xrange(numbers):
         name += (ch(numberl))
     return str(name)
-
 
 
 def generate_dialogue(dialogue_tup):
@@ -88,7 +105,7 @@ adjectives_planet_type = [
 ]
 
 adjectives_lists = [
-    adj_large, adj_pos, adj_neg
+    adj_large, adj_pos, adj_neg, adj_strange
 ]
 
 # -------------------------------------------- Description Banks --------------------------------------------------- #
@@ -128,7 +145,7 @@ desc_artifact_detailed = {
     "In its reflection you spot something %s. Its %s figure speaks of some %s nature and %s intent. "
     "The very thought of it fills you with %s dread. "
     "The sphere's %s surface constantly rises and falls, as if the stomach of a sleeping child. ":
-        (ch(adj_pos), ch(adj_strange), ch(adj_large), ch(adj_strange), ch(adj_neg), ch(adj_pos), ch(adj_strange), ch(adj_pos)),
+        (ch(adj_pos), ch(adj_strange), ch(adj_large), ch(adj_strange), ch(adj_neg), ch(adj_strange), ch(adj_pos), ch(adj_pos)),
     "Your ship closes the distance between itself and the object. The lights inside the cabin flicker rhythmically. "
     "The ship illuminates the object and reveals a familiar, yet %s sight. It is an escape pod from a well-known "
     "line of mining ships. There is room for a single occupant. You align the %s signals you detected earlier with "

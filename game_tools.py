@@ -11,6 +11,7 @@ def move_player(mapobj):
     mapobj.player.change_position(d_pos[0], d_pos[1])
     sleep(0.5)
     cprint("Moving %s units %s." % (magnitude, direction.upper()))
+    change_date(mapobj, int(magnitude))
     brief_pause()
     return 0
 
@@ -88,8 +89,20 @@ def report_personal_status(world):
 
 
 def player_sleep(world):
-    ## TODO
-    pass
+    ## TODO: IMPLEMENT DREAMING WHEN TRAVELING / SLEEPING
+    cprint("How many days would you like to sleep for?: ", t=0.03)
+    days = int(raw_input())
+    cprint("Zzz . . . ", t=0.20)
+    brief_pause()
+    change_date(world, days)
+
+
+def player_die(world):
+    adj1 = choice(choice(adjectives_lists))
+    adj2 = choice(choice(adjectives_lists))
+    adj3 = choice(choice(adjectives_lists))
+    world.egg_time.print_time_elapsed()
+    cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 
@@ -116,3 +129,12 @@ def cardinal_to_dp(card, d_pos):
     }
 
     return card_coord[card]
+
+
+def get_date(world):
+    world.egg_time.print_date()
+    return 0
+
+
+def change_date(world, days):
+    world.egg_time.change_date(days)
