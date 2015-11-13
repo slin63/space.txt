@@ -185,11 +185,11 @@ def dream(world, days=1, dream_chance=15):
     return 0
 
 
-random_objects = [Artifact]
-p = Player("P", 100, ["item"], C(0, 0))
-s = Map(5, random_objects, 0.05, player=p)
-
-p.encounters.append(Artifact())
+# random_objects = [Artifact]
+# p = Player("P", 100, ["item"], C(0, 0))
+# s = Map(5, random_objects, 0.05, player=p)
+#
+# p.encounters.append(Artifact())
 
 # l = [Artifact()]
 # print Artifact in l

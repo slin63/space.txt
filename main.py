@@ -23,9 +23,6 @@ def main(map_size, density, object_base, debug=False):
             get_date(world)
             report_surroundings(world, world.player.vision)
             surroundings = world.player.get_surroundings(vision=world.player.vision, objects=map_objects)
-            # print(surroundings)
-            # print(map_objects)
-            # cls()
 
             cprint("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate objects\n\ts - Survey\n\t"
                    "p - Check personal status\n\tz - Sleep\n\td - Die", 0.01)

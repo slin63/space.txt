@@ -116,10 +116,6 @@ adjectives_lists = [
 # -------------------------------------------- Description Banks --------------------------------------------------- #
 
 
-desc_artifact_name = {
-
-}
-
 desc_artifact_header = {
     "A cabalistic anomaly . . . ": '',
     "Esoteric in nature and insatiable in its abnormality . . . ": '',
