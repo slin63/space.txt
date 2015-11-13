@@ -177,18 +177,35 @@ desc_artifact_vague = {
 # -------------------------------------------- Dreams -------------------------------------------------------- #
 
 dreams_normal = {
-    "You had a normal dream":
-        ''
+    "You are home . . . It is the year 2342. You see your reflection in a passing mirror and you are whole. "
+    "You step into the living room and greet your family. You laugh. There is no emptiness. Every pore in your skin is "
+    "overflowing with love. ":
+        '',
+    "The sun is setting. You are on a cliff. You are holding the hand of the one you love. Her face is %s. She laughs. "
+    "It echoes in the valley.":
+        (ch(adj_pos)),
+    "You are on a beach. The water is %s. You are an arm's length from the one you love. "
+    "A %s wind falls from the crashing waves and chills you to the bone. She comes near and it leaves. ":
+        (ch(adj_pos), ch(adj_neg))
 }
 
 dreams_terror = {
-    "You had a nightmare":
-        ''
+    "You are home . . . It is the year 2342. Your home is suspended in a grotesque and %s emptiness. "
+    "It is preparing for its journey. You meet your crew. There faces are %s. You shake their hands. "
+    "Their flesh melds into yours and you become a single flesh-ridden mass. The air around you turns %s.":
+        (ch(adj_large), ch(adj_neg), ch(adj_strange)),
+    "The beach is on fire. The flames are %s in size. The hand of the one you love melts into yours. Your flesh "
+    "becomes candle wax and your bones become the wick. You burn with a flame powerful and %s. ":
+        (ch(adj_large), ch(adj_pos)),
+    "You are next to the object. It spins and changes shape constantly. Its surface is covered with %s script. "
+    "You read them and realize they are your thoughts. They object shrinks into nothingness. A void, %s and %s "
+    "is all that remains.":
+        (ch(adj_pos), ch(adj_large), ch(adj_strange))
 }
-# print generate_dialogue((desc_artifact_header, desc_artifact_vague))
-# print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
 
-# print generate_dialogue((dreams_normal,))
+print generate_dialogue((dreams_terror,))
+print generate_dialogue((dreams_normal,))
+
 
 
 # print generate_name()

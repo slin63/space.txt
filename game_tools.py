@@ -5,6 +5,14 @@ from math import log
 # ----------------------------------- Player control functions ---------------------------------------- #
 
 
+def compact_dream_travel(world, days=1, do_dream=True):
+    if do_dream:
+        dream(world, days)
+    change_date(world, days)
+    brief_pause()
+    return 0
+
+
 def move_player(mapobj):
     direction = raw_input("Direction: ")
     magnitude = raw_input("For how long? (Days): ")
@@ -12,11 +20,7 @@ def move_player(mapobj):
     mapobj.player.change_position(d_pos[0], d_pos[1])
     sleep(0.5)
     cprint("Moving %s . . ." % (direction.upper()))
-
-    dream(world=mapobj, days=magnitude)
-    change_date(mapobj, int(magnitude))
-    brief_pause()
-
+    compact_dream_travel(world=mapobj, days=int(magnitude))
     return 0
 
 
@@ -50,7 +54,7 @@ def report_surroundings(mapobj, vision):
     return 0
 
 
-def investigate(surroundings, vision):
+def investigate(surroundings, vision, mapobj):
     count = 1
     if len(surroundings) == 0:  # When there's nothing around but empty space
         sleep(0.5)
@@ -78,17 +82,16 @@ def investigate(surroundings, vision):
         sleep(0.5)
         print make_border()
         cprint(string=ans_obj[0].inspect_detailed(), t=0.03)
+        mapobj.player.encounters.append(ans_obj[0])
         print make_border()
-        brief_pause()
 
     else:
         sleep(0.5)
         print make_border()
         cprint(string=ans_obj[0].inspect_vague(), t=0.03)
         print make_border()
-        brief_pause()
 
-    change_date(world)
+    compact_dream_travel(mapobj)
 
     return 0
 
@@ -103,9 +106,7 @@ def player_sleep(mapobj):
     cprint("How many days would you like to sleep for?: ", t=0.03)
     days = int(raw_input())
     cprint("Zzz . . . ", t=0.20)
-    brief_pause()
-    dream(world=mapobj, days=days)
-    change_date(mapobj, days)
+    compact_dream_travel(world=mapobj, days=days)
 
 
 def player_die(world):
@@ -114,8 +115,8 @@ def player_die(world):
     adj3 = choice(choice(adjectives_lists))
     world.egg_time.print_time_elapsed()
     num_encounters = len(world.player.encounters)
-    num_dreams = len(world.player.drea,s)
-    cprint(string="You had %s encounters and %s dreams." % (num_encounters, num_dreams))
+    num_dreams = len(world.player.dreams)
+    cprint(string="You had %s encounter(s) and %s dream(s)." % (num_encounters, num_dreams))
     cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
@@ -157,20 +158,21 @@ def change_date(world, days=1):
 # -------------------------------------------- Player Status Functions --------------------------------------------- #
 
 
-def dream(world, days=1, dream_chance=10):
+def dream(world, days=1, dream_chance=15):
     roll = randint(0, 100)
     if days == 2.713:
         dream_chance *= log(days)
     else:
         dream_chance += days
-    print dream_chance
-    if Artifact in world.player.encounters:
-        if roll < dream_chance:
+    # print dream_chance
+    if roll < dream_chance:
+        if Artifact in world.player.encounters:
             dream_string = world.player.generate_dream(dreams_terror)
+            cprint('You have a dream . . . ', t=0.10)
             cprint(dream_string)
-    else:
-        if roll < dream_chance:
+        else:
             dream_string = world.player.generate_dream(dreams_normal)
+            cprint('You have a dream . . . ', t=0.10)
             cprint(dream_string)
 
     return 0
