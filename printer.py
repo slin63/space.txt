@@ -6,5 +6,5 @@ def cprint(string, t=0.04):
     for char in string:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(t)
+        time.sleep(0)
     print ''

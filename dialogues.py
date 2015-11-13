@@ -59,9 +59,12 @@ def generate_dialogue(dialogue_tup):
 
     for entry in dialogue_tup:
         dialogue = ch(entry.keys())
+        # print entry[dialogue]
         for e in entry[dialogue]:
             adjs += (ch(e),)
-        if adjs == '':
+        # print 'ADJS ='
+        # print adjs
+        if adjs == 1:
             gen += dialogue
         else:
             gen += (dialogue % adjs)
@@ -182,7 +185,7 @@ dreams_normal = {
         '',
     "The sun is setting. You are on a cliff. You are holding the hand of the one you love. Her face is %s. She laughs. "
     "It echoes in the valley.":
-        (adj_pos),
+        (adj_pos,),
     "You are on a beach. The water is %s. You are an arm's length from the one you love. "
     "A %s wind falls from the crashing waves and chills you to the bone. She comes near and it leaves. ":
         (adj_pos, adj_neg)
@@ -197,13 +200,14 @@ dreams_terror = {
     "becomes candle wax and your bones become the wick. You burn with a flame powerful and %s. ":
         (adj_large, adj_pos),
     "You are next to the object. It spins and changes shape constantly. Its surface is covered with %s script. "
-    "You read them and realize they are your thoughts. They object shrinks into nothingness. A void, %s and %s, "
+    "You read them and realize they are your thoughts. The object shrinks into nothingness. A void, %s and %s, "
     "is all that remains.":
         (adj_pos, adj_large, adj_strange)
 }
 
 # print generate_dialogue((dreams_terror,))
-# print generate_dialogue((dreams_normal,))
+# for x in xrange(10):
+#     print generate_dialogue((dreams_normal,))
 #
 
 
