@@ -8,6 +8,3 @@ def cprint(string, t=0.04):
         sys.stdout.flush()
         time.sleep(t)
     print ''
-
-
-

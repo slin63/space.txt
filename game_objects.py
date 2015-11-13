@@ -8,18 +8,24 @@ from printer import cprint
 
 
 class Player(object):
-    def __init__(self, name, health, inventory=None, position=None, vision=40):
+    def __init__(self, name, health, encounters=None, position=None, vision=40):
         self.name = name
         self.health = health
-        self.inventory = inventory
+        self.encounters = encounters
         self.position = position
         self.vision = vision
+        self.dreams = []  # Form: dream string
 
     def get_position(self):
         return self.position
 
     def change_position(self, dx, dy):
         return self.position.d_pos(dx, dy)
+
+    def generate_dream(self, dream_dic):
+        dream = generate_dialogue((dream_dic,))
+        self.dreams.append(dream)
+        return dream
 
     def get_surroundings(self, vision, objects):
         """
@@ -38,7 +44,7 @@ class Player(object):
         return in_range
 
     def __str__(self):
-        vals = [self.name, self.health, self.inventory, self.position]
+        vals = [self.name, self.health, self.encounters, self.position]
         stringrep = ""
         for e in vals:
             stringrep += str(e) + ", "
@@ -60,7 +66,10 @@ class EggTime(object):
         self.time_elapsed = 0
 
     def change_date(self, days):
-        cprint("%s days have passed." % days)
+        if days > 1:
+            cprint("%s days have passed." % days)
+        else:
+            cprint("One day has passed.")
         self.day += days
         self.time_elapsed += days
 
@@ -100,13 +109,13 @@ class SpaceObject(object):
         self.scene = scene
 
     def inspect_vague(self):
-        cprint(string=("OBJ - ID: " + self.name), t=0.20)
+        cprint(string=("OBJ-ID: " + self.name), t=0.12)
         cprint(string='. . . . . ', t=0.30)
         sleep(0.2)
         return (self.header +'\n'+ self.desc_vague)
 
     def inspect_detailed(self):
-        cprint(string=("ID: " + self.name), t=0.20)
+        cprint(string=("ID: " + self.name), t=0.12)
         cprint(string='. . . . . ', t=0.30)
         sleep(0.2)
         return self.header +'\n'+ self.desc_detailed +'\n'+ self.footer
@@ -137,6 +146,9 @@ class SpaceObject(object):
 
     def __repr__(self):
         return self.name
+
+    def __eq__(self, other):
+        return __name__ == __name__
 
 
 class Artifact(SpaceObject):

@@ -25,7 +25,6 @@ def main(map_size, density, object_base, debug=False):
             surroundings = world.player.get_surroundings(vision=world.player.vision, objects=map_objects)
             # print(surroundings)
             # print(map_objects)
-
             # cls()
 
             cprint("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate objects\n\ts - Survey\n\t"
@@ -42,6 +41,7 @@ def main(map_size, density, object_base, debug=False):
                 report_surroundings(world, world.player.vision)
             elif ans.lower() == 'i':
                 investigate(surroundings, world.player.vision)
+                # change_date(world)
             elif ans.lower() == 'p':
                 report_personal_status(world)
             elif ans.lower() == 'z':
@@ -58,6 +58,7 @@ s = Map(5, random_objects, 0.05, player=p)
 
 
 if __name__ == "__main__":
+    cls()
     cprint("EGG-SPACE.TXT 0.11.12")
     main(
         map_size=2,

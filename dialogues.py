@@ -130,7 +130,7 @@ desc_artifact_detailed = {
         (ch(adj_strange), ch(adj_pos), ch(adj_large), ch(adj_neg), ch(adj_large)),
     "You have arrived. The ship searches for the %s anomaly but instead find a shapeless and %s mass, no larger than a small "
     "child. It rotates furiously, emitting %s beams of light as it spins. From time to time, the object "
-    "suddenly pivots about an axis, dancing in a %s manner. You are terrified to find that your sensors indicate that "
+    "suddenly pivots about an axis, dancing in a graceful, but %s manner. You are terrified to find that your sensors indicate that "
     "the object is emitting sound waves in what should be a total vacuum. ":
         (ch(adj_large), ch(adj_strange), ch(adj_pos), ch(adj_strange)),
     "You approach the object. "
@@ -152,9 +152,9 @@ desc_artifact_detailed = {
     "the distress signals being emitted from the pod. You note something %s. "
     "The exhaust ports of the pod's life support system are dotted with %s streams of an unknown liquid. "
     "Your ship detects %s amounts of radiation being emitted from the center of the pod. "
-    "The pods are designed to support its users for up to two weeks. The distress signal indicates its age to be more "
+    "The pods are designed to support its users for up to two weeks. The %s signal indicates its age to be more "
     "than two centuries old. ":
-        (ch(adj_strange), ch(adj_strange), ch(adj_strange), ch(adj_large), ch(adj_large))
+        (ch(adj_strange), ch(adj_strange), ch(adj_strange), ch(adj_large), ch(adj_large), ch(adj_pos))
 }
 
 desc_artifact_footer = {
@@ -173,7 +173,22 @@ desc_artifact_vague = {
         (ch(adj_neg), ch(adj_neg), ch(adj_large), ch(adj_pos))
 }
 
+
+# -------------------------------------------- Dreams -------------------------------------------------------- #
+
+dreams_normal = {
+    "You had a normal dream":
+        ''
+}
+
+dreams_terror = {
+    "You had a nightmare":
+        ''
+}
 # print generate_dialogue((desc_artifact_header, desc_artifact_vague))
 # print generate_dialogue((desc_artifact_header, desc_artifact_detailed, desc_artifact_footer))
+
+# print generate_dialogue((dreams_normal,))
+
 
 # print generate_name()

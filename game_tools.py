@@ -1,4 +1,5 @@
 from movement import *
+from math import log
 
 
 # ----------------------------------- Player control functions ---------------------------------------- #
@@ -6,13 +7,16 @@ from movement import *
 
 def move_player(mapobj):
     direction = raw_input("Direction: ")
-    magnitude = raw_input("Distance: ")
+    magnitude = raw_input("For how long? (Days): ")
     d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
     mapobj.player.change_position(d_pos[0], d_pos[1])
     sleep(0.5)
-    cprint("Moving %s units %s." % (magnitude, direction.upper()))
+    cprint("Moving %s . . ." % (direction.upper()))
+
+    dream(world=mapobj, days=magnitude)
     change_date(mapobj, int(magnitude))
     brief_pause()
+
     return 0
 
 
@@ -26,11 +30,11 @@ def report_status(mapobj):
 def report_surroundings(mapobj, vision):
     """Prints out a nice summary of the objects within vision of the player."""
     surr = mapobj.player.get_surroundings(vision, mapobj.get_objects())
-    # print(mapobj.get_objects())  # Gives all objects within the map object
     num_objs = len(surr)
     count = 1
     print("%s point(s) of interest nearby . . . " % num_objs)
     sleep(0.5)
+
     for obj in surr:
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
@@ -41,6 +45,7 @@ def report_surroundings(mapobj, vision):
         else:
             cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.022)
         count += 1
+
     brief_pause()
     return 0
 
@@ -68,18 +73,23 @@ def investigate(surroundings, vision):
     ans = raw_input()
 
     ans_obj = surroundings[int(ans)-1]
+
     if ans_obj[1] == 0:
         sleep(0.5)
         print make_border()
         cprint(string=ans_obj[0].inspect_detailed(), t=0.03)
         print make_border()
         brief_pause()
+
     else:
         sleep(0.5)
         print make_border()
         cprint(string=ans_obj[0].inspect_vague(), t=0.03)
         print make_border()
         brief_pause()
+
+    change_date(world)
+
     return 0
 
 
@@ -88,13 +98,14 @@ def report_personal_status(world):
     pass
 
 
-def player_sleep(world):
+def player_sleep(mapobj):
     ## TODO: IMPLEMENT DREAMING WHEN TRAVELING / SLEEPING
     cprint("How many days would you like to sleep for?: ", t=0.03)
     days = int(raw_input())
     cprint("Zzz . . . ", t=0.20)
     brief_pause()
-    change_date(world, days)
+    dream(world=mapobj, days=days)
+    change_date(mapobj, days)
 
 
 def player_die(world):
@@ -102,6 +113,9 @@ def player_die(world):
     adj2 = choice(choice(adjectives_lists))
     adj3 = choice(choice(adjectives_lists))
     world.egg_time.print_time_elapsed()
+    num_encounters = len(world.player.encounters)
+    num_dreams = len(world.player.drea,s)
+    cprint(string="You had %s encounters and %s dreams." % (num_encounters, num_dreams))
     cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
@@ -136,5 +150,40 @@ def get_date(world):
     return 0
 
 
-def change_date(world, days):
+def change_date(world, days=1):
     world.egg_time.change_date(days)
+
+
+# -------------------------------------------- Player Status Functions --------------------------------------------- #
+
+
+def dream(world, days=1, dream_chance=10):
+    roll = randint(0, 100)
+    if days == 2.713:
+        dream_chance *= log(days)
+    else:
+        dream_chance += days
+    print dream_chance
+    if Artifact in world.player.encounters:
+        if roll < dream_chance:
+            dream_string = world.player.generate_dream(dreams_terror)
+            cprint(dream_string)
+    else:
+        if roll < dream_chance:
+            dream_string = world.player.generate_dream(dreams_normal)
+            cprint(dream_string)
+
+    return 0
+
+
+# random_objects = [Artifact]
+# p = Player("P", 100, ["item"], C(0,0))
+# s = Map(5, random_objects, 0.05, player=p)
+#
+#
+# p.encounters.append(Artifact())
+
+# l = [Artifact()]
+# print Artifact in l
+
+# print dream(s, 8)
