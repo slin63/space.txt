@@ -76,7 +76,7 @@ def investigate(surroundings, vision, mapobj):
 
     ans = raw_input()
 
-    ans_obj = surroundings[int(ans)-1]
+    ans_obj = surroundings[int(ans) - 1]
 
     if ans_obj[1] == 0:
         sleep(0.5)
@@ -97,6 +97,10 @@ def investigate(surroundings, vision, mapobj):
 
 
 def report_personal_status(world):
+    if Artifact in world.player.encounters:
+        cprint("You feel an uneasy darkness settling in your blood. ")
+    else:
+        cprint("Nothing new. ")
     ## TODO
     pass
 
@@ -119,11 +123,12 @@ def player_die(world):
     cprint(string="You had %s encounter(s) and %s dream(s)." % (num_encounters, num_dreams))
     cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
 
+
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 
 
 def evaluate_distance(distance, vision):
-    ratio = distance/vision
+    ratio = distance / vision
     if 0.7 < ratio <= 1.0:
         return "Barely detectable"
     if 0.5 < ratio <= 0.7:
@@ -138,9 +143,11 @@ def evaluate_distance(distance, vision):
 
 def cardinal_to_dp(card, d_pos):
     card_coord = {
-        "n": (0, d_pos), "e": (d_pos, 0), "s": (0, -d_pos),  "w": (-d_pos, 0),
-        "ne": (2*d_pos * sin(pi/4), 2*d_pos * cos(pi/4)), "nw": (-2*d_pos * sin(pi/4), 2*d_pos * cos(pi/4)),
-        "sw": (-2*d_pos * sin(pi/4), -2*d_pos * cos(pi/4)), "se": (2*d_pos * sin(pi/4), -2*d_pos * cos(pi/4)),
+        "n": (0, d_pos), "e": (d_pos, 0), "s": (0, -d_pos), "w": (-d_pos, 0),
+        "ne": (2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
+        "nw": (-2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
+        "sw": (-2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
+        "se": (2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
     }
 
     return card_coord[card]
@@ -164,28 +171,28 @@ def dream(world, days=1, dream_chance=15):
         dream_chance *= log(days)
     else:
         dream_chance += days
-    # print dream_chance
+
     if roll < dream_chance:
         if Artifact in world.player.encounters:
-            dream_string = world.player.generate_dream(dreams_terror)
+            dream_string = world.player.dream(dreams_terror)
             cprint('You have a dream . . . ', t=0.10)
             cprint(dream_string)
         else:
-            dream_string = world.player.generate_dream(dreams_normal)
+            dream_string = world.player.dream(dreams_normal)
             cprint('You have a dream . . . ', t=0.10)
             cprint(dream_string)
 
     return 0
 
 
-# random_objects = [Artifact]
-# p = Player("P", 100, ["item"], C(0,0))
-# s = Map(5, random_objects, 0.05, player=p)
-#
-#
-# p.encounters.append(Artifact())
+random_objects = [Artifact]
+p = Player("P", 100, ["item"], C(0, 0))
+s = Map(5, random_objects, 0.05, player=p)
+
+p.encounters.append(Artifact())
 
 # l = [Artifact()]
 # print Artifact in l
 
-# print dream(s, 8)
+# for e in xrange(5):
+#     dream(s, 500)

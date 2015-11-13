@@ -34,7 +34,7 @@ class Map(object):
     def select_object(self):
         """Uses randint to determine presence or absence of an object
         at a given coordinate when called by populate_grid."""
-        if randint(0, 10000) < (self.density*10000):
+        if randint(0, 10000) < (self.density * 10000):
             return choice(self.objects)()
         else:
             return '-'

@@ -22,10 +22,10 @@ class Player(object):
     def change_position(self, dx, dy):
         return self.position.d_pos(dx, dy)
 
-    def generate_dream(self, dream_dic):
-        dream = generate_dialogue((dream_dic,))
-        self.dreams.append(dream)
-        return dream
+    def dream(self, dream_dic):
+        dream_string = generate_dialogue((dream_dic,))
+        self.dreams.append(dream_string)
+        return dream_string
 
     def get_surroundings(self, vision, objects):
         """
@@ -39,7 +39,7 @@ class Player(object):
         for e in objects.keys():
             d = pos.distance(e)
             if d <= vision:
-                in_range += ((objects[e], d, pos.cardinality(e)), )
+                in_range += ((objects[e], d, pos.cardinality(e)),)
 
         return in_range
 
@@ -112,13 +112,13 @@ class SpaceObject(object):
         cprint(string=("OBJ-ID: " + self.name), t=0.12)
         cprint(string='. . . . . ', t=0.30)
         sleep(0.2)
-        return (self.header +'\n'+ self.desc_vague)
+        return (self.header + '\n' + self.desc_vague)
 
     def inspect_detailed(self):
         cprint(string=("ID: " + self.name), t=0.12)
         cprint(string='. . . . . ', t=0.30)
         sleep(0.2)
-        return self.header +'\n'+ self.desc_detailed +'\n'+ self.footer
+        return self.header + '\n' + self.desc_detailed + '\n' + self.footer
 
     def generate_name(self):
         raise NotImplementedError

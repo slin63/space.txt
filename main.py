@@ -41,7 +41,6 @@ def main(map_size, density, object_base, debug=False):
                 report_surroundings(world, world.player.vision)
             elif ans.lower() == 'i':
                 investigate(surroundings, world.player.vision, world)
-                # change_date(world)
             elif ans.lower() == 'p':
                 report_personal_status(world)
             elif ans.lower() == 'z':
