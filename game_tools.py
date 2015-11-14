@@ -5,17 +5,18 @@ from math import log
 # ----------------------------------- Player control functions ---------------------------------------- #
 
 
-def compact_dream_travel(world, days=1, do_dream=True):
+def compact_dream_travel(world, days=1, do_dream=True, do_pause=True):
     if do_dream:
         dream(world, days)
     change_date(world, days)
-    brief_pause()
+    if do_pause:
+        brief_pause()
     return 0
 
 
 def move_player(mapobj):
     direction = raw_input("Direction: ")
-    magnitude = raw_input("For how long? (Days): ")
+    magnitude = input("For how long?: ")
     d_pos = cardinal_to_dp(direction.lower(), float(magnitude))
     mapobj.player.change_position(d_pos[0], d_pos[1])
     sleep(0.5)
@@ -40,14 +41,15 @@ def report_surroundings(mapobj, vision):
     sleep(0.5)
 
     for obj in surr:
-        distance = evaluate_distance(obj[1], vision)
+        # distance = evaluate_distance(obj[1], vision)
+        distance = obj[1]
         direction = obj[2]
-        if distance.lower() == "same grid":
+        if distance == 0:
             cprint(string=("\t%s. Located on current grid." % count), t=0.022)
-        elif distance == "Barely detectable":
-            cprint(string=("\t%s. %s: %s(?)" % (count, distance, direction)), t=0.022)
+        elif (distance / float(vision)) > 80:
+            cprint(string=("\t%s. %s days away: %s(?)" % (count, str(distance)[0:4], direction)), t=0.022)
         else:
-            cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.022)
+            cprint(string=("\t%s. %s days away: %s" % (count, str(distance)[0:4], direction)), t=0.022)
         count += 1
 
     brief_pause()
@@ -77,18 +79,21 @@ def investigate(surroundings, vision, mapobj):
     ans = raw_input()
 
     ans_obj = surroundings[int(ans) - 1]
+    distance_obj = ans_obj[1]
+    obj_select = ans_obj[0]
 
-    if ans_obj[1] == 0:
+    if distance_obj == 0:
         sleep(0.5)
         print make_border()
-        cprint(string=ans_obj[0].inspect_detailed(), t=0.03)
+        cprint(string=obj_select.inspect_detailed(), t=0.03)
         mapobj.player.encounters.append(ans_obj[0])
         print make_border()
+        is_landable(obj_select)
 
     else:
         sleep(0.5)
         print make_border()
-        cprint(string=ans_obj[0].inspect_vague(), t=0.03)
+        cprint(string=obj_select.inspect_vague(), t=0.03)
         print make_border()
 
     compact_dream_travel(mapobj)
@@ -114,15 +119,24 @@ def player_sleep(mapobj):
 
 
 def player_die(world):
-    adj1 = choice(choice(adjectives_lists))
-    adj2 = choice(choice(adjectives_lists))
-    adj3 = choice(choice(adjectives_lists))
+    adj1 = ch(ch(adjectives_lists))
+    adj2 = ch(ch(adjectives_lists))
+    adj3 = ch(ch(adjectives_lists))
     world.egg_time.print_time_elapsed()
     num_encounters = len(world.player.encounters)
     num_dreams = len(world.player.dreams)
     cprint(string="You had %s encounter(s) and %s dream(s)." % (num_encounters, num_dreams))
     cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
 
+
+# ---------------------------------------------- Area visitations  ---------------------------------------- #
+
+def is_landable(obj):
+    # if obj in [Wreckage(), Planet()]:  ## TODO: IMPLEMENT PLANET
+    if obj in [Wreckage()]:
+        print 'yes, visitable. '
+
+print is_landable(Wreckage())
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 
@@ -144,10 +158,14 @@ def evaluate_distance(distance, vision):
 def cardinal_to_dp(card, d_pos):
     card_coord = {
         "n": (0, d_pos), "e": (d_pos, 0), "s": (0, -d_pos), "w": (-d_pos, 0),
-        "ne": (2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
-        "nw": (-2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
-        "sw": (-2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
-        "se": (2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
+        "ne": (d_pos, d_pos),
+        "nw": (-d_pos, d_pos),
+        "sw": (-d_pos, -d_pos),
+        "se": (d_pos, -d_pos)
+        # "ne": (2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
+        # "nw": (-2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
+        # "sw": (-2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
+        # "se": (2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
     }
 
     return card_coord[card]
@@ -172,18 +190,21 @@ def dream(world, days=1, dream_chance=15):
     else:
         dream_chance += days
 
+    dream_list = [dreams_normal]
+
     if roll < dream_chance:
-        if Artifact in world.player.encounters:
-            dream_string = world.player.dream(dreams_terror)
-            cprint('You have a dream . . . ', t=0.10)
-            cprint(dream_string)
-        else:
-            dream_string = world.player.dream(dreams_normal)
-            cprint('You have a dream . . . ', t=0.10)
-            cprint(dream_string)
+        if Artifact() in world.player.encounters:
+            dream_list.append(dreams_terror)
+        elif Wreckage() in world.player.encounters:
+            dream_list.append(dreams_wreckage)
+
+        # print dream_list
+
+        dream_string = world.player.dream(dreams_normal)
+        cprint('You have a dream . . . ', t=0.10)
+        cprint(dream_string)
 
     return 0
-
 
 # random_objects = [Artifact]
 # p = Player("P", 100, ["item"], C(0, 0))

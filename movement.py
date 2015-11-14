@@ -1,5 +1,5 @@
 # Handles player and scene locations
-
+from math import sqrt, atan2, degrees, sin, cos, pi
 from game_objects import *
 
 # ------------------------------------------------- Overworld --------------------------------------------------- #
@@ -35,7 +35,7 @@ class Map(object):
         """Uses randint to determine presence or absence of an object
         at a given coordinate when called by populate_grid."""
         if randint(0, 10000) < (self.density * 10000):
-            return choice(self.objects)()
+            return ch(self.objects)()
         else:
             return '-'
 
@@ -46,13 +46,13 @@ class Map(object):
                 obj_dic[e] = self.grid[e]
         return obj_dic
 
-    def get_player_inters(self):
-        pos = self.player.get_position()
-        objs = self.get_objects()
-        for e in objs.keys():
-            if pos == e:
-                return pos, objs[e]
-        return 'space'
+    def get_closest_obj(self):
+        low = 10000000
+        for e in self.grid:
+            distance = self.player.position.distance(e)
+            if distance < low:
+                low = distance
+        return low
 
     def render_grid(self):
         """Renders the objects in the grid as a formatted string."""

@@ -1,5 +1,3 @@
-from math import sqrt, atan2, degrees, sin, cos, pi
-from random import randint, choice
 from dialogues import *
 from printer import cprint
 
@@ -112,7 +110,7 @@ class SpaceObject(object):
         cprint(string=("OBJ-ID: " + self.name), t=0.12)
         cprint(string='. . . . . ', t=0.30)
         sleep(0.2)
-        return (self.header + '\n' + self.desc_vague)
+        return self.header + '\n' + self.desc_vague
 
     def inspect_detailed(self):
         cprint(string=("ID: " + self.name), t=0.12)
@@ -148,7 +146,7 @@ class SpaceObject(object):
         return self.name
 
     def __eq__(self, other):
-        return __name__ == __name__
+        return type(self) == type(other)
 
 
 class Artifact(SpaceObject):
@@ -156,7 +154,7 @@ class Artifact(SpaceObject):
         super(Artifact, self).__init__(name=name)
 
     def generate_name(self):
-        return generate_name(4, 4)
+        return generate_name(4, 2)
 
     def generate_header(self):
         return generate_dialogue((desc_artifact_header,))
@@ -171,9 +169,32 @@ class Artifact(SpaceObject):
         return generate_dialogue((desc_artifact_footer,))
 
 
+class Wreckage(SpaceObject):
+    def __init__(self, name="Wreckage"):
+        super(Wreckage, self).__init__(name=name)
+
+    def generate_name(self):
+        return generate_name(4, 4)
+
+    def generate_header(self):
+        return generate_dialogue((desc_wreckage_header,))
+
+    def generate_desc_vague(self):
+        return generate_dialogue((desc_wreckage_vague,))
+
+    def generate_desc_detailed(self):
+        return generate_dialogue((desc_wreckage_detailed,))
+
+    def generate_footer(self):
+        return generate_dialogue((desc_wreckage_footer,))
+
+
 class Planet(SpaceObject):
     def __init__(self, name="Planet"):
         super(Planet, self).__init__(name=name)
+
+    def generate_name(self):
+        return generate_planet_name(name_list)
 
     def generate_header(self):
         ## TODO
@@ -213,26 +234,7 @@ class Star(SpaceObject):
         pass
 
 
-class Wreckage(SpaceObject):
-    def __init__(self, name="Wreckage"):
-        super(Wreckage, self).__init__(name=name)
 
-    def generate_header(self):
-        ## TODO
-        pass
+p = Planet()
 
-    def generate_desc_vague(self):
-        ## TODO
-        pass
-
-    def generate_desc_detailed(self):
-        ## TODO
-        pass
-
-    def generate_footer(self):
-        ## TODO
-        pass
-
-
-t = EggTime()
-# t.print_date()
+print p.name

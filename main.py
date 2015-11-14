@@ -3,7 +3,7 @@ from time import time
 
 
 def main(map_size, density, object_base, debug=False):
-    p = Player("P", 100, ["item"], C(0,0))
+    p = Player("P", 100, [Artifact(), Wreckage()], C(0,0))
     start = time()
     world = Map(map_size, object_base, density, player=p)
     end = time()
@@ -19,6 +19,8 @@ def main(map_size, density, object_base, debug=False):
         esc = True
 
         while esc:
+
+            print world.player.encounters
 
             get_date(world)
             report_surroundings(world, world.player.vision)
@@ -48,19 +50,21 @@ def main(map_size, density, object_base, debug=False):
                 exit()
 
 
-random_objects = [Artifact]
+RANDOM_OBJECTS = [Artifact, Wreckage]
 p = Player("P", 100, ["item"], C(0,0))
-s = Map(5, random_objects, 0.05, player=p)
+s = Map(5, RANDOM_OBJECTS, 0.05, player=p)
 
+# s.player.position
+# s.get_closest_obj()
 
 if __name__ == "__main__":
     cls()
-    cprint("EGG-SPACE.TXT 0.11.12")
+    cprint("EGG-SPACE.TXT 0.11.13")
     main(
-        map_size=2,
-        density=1,
-        object_base=random_objects,
+        map_size=500,
+        density=0.004,
+        object_base=RANDOM_OBJECTS,
         debug=False,
     )
 
-
+#
