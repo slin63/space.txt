@@ -169,9 +169,9 @@ class Artifact(SpaceObject):
         return generate_dialogue((desc_artifact_footer,))
 
 
-class Wreckage(SpaceObject):
+class Wreckage(SpaceObject):  # TODO: Make specific wreckage types have correlated Scene() and descriptions.
     def __init__(self, name="Wreckage"):
-        super(Wreckage, self).__init__(name=name)
+        super(Wreckage, self).__init__(name=name, scene=WreckageScene())
 
     def generate_name(self):
         return generate_name(4, 4)
@@ -191,7 +191,7 @@ class Wreckage(SpaceObject):
 
 class Planet(SpaceObject):
     def __init__(self, name="Planet"):
-        super(Planet, self).__init__(name=name)
+        super(Planet, self).__init__(name=name, scene=PlanetScene())
 
     def generate_name(self):
         return generate_planet_name(name_list)
@@ -234,7 +234,23 @@ class Star(SpaceObject):
         pass
 
 
+# ------------------------------------------------- Scene Objects --------------------------------------------------- #
 
-p = Planet()
+class Scene(object):
+    def __init__(self, name=None, player=None):
+        self.name = name
+        self.environment_objects = ()
+        self.player = player
 
-print p.name
+    def __repr__(self):
+        return self.player.name
+
+
+class WreckageScene(Scene):
+    def __init__(self):
+        super(WreckageScene, self).__init__(name='WreckageScene')
+
+
+class PlanetScene(Scene):
+    def __init__(self):
+        super(PlanetScene, self).__init__(name='PlanetScene')

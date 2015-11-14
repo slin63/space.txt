@@ -56,7 +56,7 @@ def report_surroundings(mapobj, vision):
     return 0
 
 
-def investigate(surroundings, vision, mapobj):
+def investigate_menu(surroundings, vision, mapobj):
     count = 1
     if len(surroundings) == 0:  # When there's nothing around but empty space
         sleep(0.5)
@@ -82,23 +82,29 @@ def investigate(surroundings, vision, mapobj):
     distance_obj = ans_obj[1]
     obj_select = ans_obj[0]
 
-    if distance_obj == 0:
-        sleep(0.5)
-        print make_border()
-        cprint(string=obj_select.inspect_detailed(), t=0.03)
-        mapobj.player.encounters.append(ans_obj[0])
-        print make_border()
-        is_landable(obj_select)
-
-    else:
-        sleep(0.5)
-        print make_border()
-        cprint(string=obj_select.inspect_vague(), t=0.03)
-        print make_border()
+    investigate_obj_details(mapobj, obj_select, distance_obj)
 
     compact_dream_travel(mapobj)
 
     return 0
+
+
+def investigate_obj_details(mapobj, obj, distance):
+    if distance == 0:
+        sleep(0.5)
+        print make_border()
+        cprint(string=obj.inspect_detailed(), t=0.03)
+        mapobj.player.encounters.append(obj)
+        print make_border()
+
+        if is_landable(obj):
+            land_dialogue(mapobj, obj)
+
+    else:
+        sleep(0.5)
+        print make_border()
+        cprint(string=obj.inspect_vague(), t=0.03)
+        print make_border()
 
 
 def report_personal_status(world):
@@ -134,9 +140,22 @@ def player_die(world):
 def is_landable(obj):
     # if obj in [Wreckage(), Planet()]:  ## TODO: IMPLEMENT PLANET
     if obj in [Wreckage()]:
-        print 'yes, visitable. '
+        return True
 
-print is_landable(Wreckage())
+
+def land_dialogue(mapobj, obj):
+    cprint("Your sensors indicate that a landing is possible. Would you like to dock and explore? [Y/N]: ")
+    ans = raw_input()
+    if ans.lower() == 'y':
+        obj.scene.player = mapobj.player
+        landing(obj)
+    else:
+        return 0
+
+
+def landing(obj):
+    cprint("You have landed on %s " % obj.name)
+
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 

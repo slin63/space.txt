@@ -3,7 +3,7 @@ from time import time
 
 
 def main(map_size, density, object_base, debug=False):
-    p = Player("P", 100, [Artifact(), Wreckage()], C(0,0))
+    p = Player("P", 100, [], C(0, 0))
     start = time()
     world = Map(map_size, object_base, density, player=p)
     end = time()
@@ -39,7 +39,7 @@ def main(map_size, density, object_base, debug=False):
             elif ans.lower() == 's':
                 report_surroundings(world, world.player.vision)
             elif ans.lower() == 'i':
-                investigate(surroundings, world.player.vision, world)
+                investigate_menu(surroundings, world.player.vision, world)
             elif ans.lower() == 'p':
                 report_personal_status(world)
             elif ans.lower() == 'z':
@@ -49,8 +49,8 @@ def main(map_size, density, object_base, debug=False):
                 brief_pause("Enter to exit . . .")
                 exit()
 
-
-RANDOM_OBJECTS = [Artifact, Wreckage]
+RANDOM_OBJECTS = [Wreckage]
+# RANDOM_OBJECTS = [Artifact, Wreckage]
 p = Player("P", 100, ["item"], C(0,0))
 s = Map(5, RANDOM_OBJECTS, 0.05, player=p)
 
@@ -61,8 +61,8 @@ if __name__ == "__main__":
     cls()
     cprint("EGG-SPACE.TXT 0.11.13")
     main(
-        map_size=500,
-        density=0.004,
+        map_size=2,
+        density=1,
         object_base=RANDOM_OBJECTS,
         debug=False,
     )
