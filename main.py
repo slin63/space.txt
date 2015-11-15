@@ -20,7 +20,7 @@ def main(map_size, density, object_base, debug=False):
 
         while esc:
 
-            print world.player.encounters
+            # print world.player.encounters
 
             get_date(world)
             report_surroundings(world, world.player.vision)
@@ -39,7 +39,7 @@ def main(map_size, density, object_base, debug=False):
             elif ans.lower() == 's':
                 report_surroundings(world, world.player.vision)
             elif ans.lower() == 'i':
-                investigate_menu(surroundings, world.player.vision, world)
+                investigate_space_menu(surroundings, world.player.vision, world)
             elif ans.lower() == 'p':
                 report_personal_status(world)
             elif ans.lower() == 'z':
@@ -54,9 +54,6 @@ RANDOM_OBJECTS = [Wreckage]
 p = Player("P", 100, ["item"], C(0,0))
 s = Map(5, RANDOM_OBJECTS, 0.05, player=p)
 
-# s.player.position
-# s.get_closest_obj()
-
 if __name__ == "__main__":
     cls()
     cprint("EGG-SPACE.TXT 0.11.13")
@@ -67,4 +64,8 @@ if __name__ == "__main__":
         debug=False,
     )
 
+# -------- Testing
 #
+# a = WreckageRooms()
+# print a.rooms_wreckage_desc
+# print a.rooms_wreckage_objs

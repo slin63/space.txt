@@ -1,5 +1,5 @@
 # Handles player and scene locations
-from math import sqrt, atan2, degrees, sin, cos, pi
+from math import sqrt, atan2, degrees
 from game_objects import *
 
 # ------------------------------------------------- Overworld --------------------------------------------------- #

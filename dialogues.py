@@ -54,7 +54,7 @@ def generate_name(letters=5, numbers=3):
     return str(gen)
 
 
-def generate_planet_name(name_list):
+def generate_name_astral_body(name_list):
     gen = ''
     gen += ch(name_list).upper() + generate_name(letters=0, numbers=4)
 
@@ -113,8 +113,17 @@ adj_strange = [
     'gruesome', 'inhuman', 'obscene', 'hideous', 'odious'
 ]
 
-adjectives_planet_type = [
-    # TODO
+adj_atmosphere_bad = [
+    'thin', 'delicate', 'freezing', 'burning', 'meager', 'emaciated', 'shriveled', 'cadaverous',
+    'corpulent'
+]
+
+adj_atmosphere_good = [
+    'thick', 'rich', 'lush', 'abundant', 'substantial', 'lumbering',
+]
+
+adj_atmosphere_hot = [
+    'blazing', 'boiling', 'scorching', 'unbearable', 'torrid', 'igneous', 'searing', 'calescent', 'scalding'
 ]
 
 noun_genders = [
@@ -232,7 +241,7 @@ desc_wreckage_header = {
 
 desc_wreckage_detailed = {
     "You approach the ruin. "
-    "It is a %s-shaped satellite whose death dates to %s. It is covered in a familiar "
+    "It is a %s-shaped observation vessel whose death dates to %s. It is covered in a familiar "
     "Earth language that escapes your grasp. The vast insulator has preserved it perfectly. "
     "The %s detailing of each individual component astonishes you. You think of the efforts of its originator. "
     "It shines brilliantly in the light of a nearby sun. Every %s star glistens in the "
@@ -288,6 +297,30 @@ desc_planet_vague = {
         ()
 }
 
+# -------- Star Descriptions  ## TODO: implement visiting wreckages and planets . . .
+
+desc_star_header = {
+    "Star header":
+        ()
+}
+
+desc_star_detailed = {
+    "Star detailed":
+        ()
+}
+
+desc_star_footer = {
+    "Star footer":
+        ()
+}
+
+desc_star_vague = {
+    "Star vague":
+        ()
+}
+
+
+
 # -------------------------------------------- Dreams -------------------------------------------------------- #
 
 dreams_normal = {
@@ -299,7 +332,7 @@ dreams_normal = {
     "Her face is %s. She laughs. It echoes in the valley.":
         (adj_pos,),
     "You are on a beach. The water is %s. You are an arm's length from the one you love. "
-    "A %s wind falls from the crashing waves and chills you to the bone. She comes near and it leaves. ":
+    "A %s wind falls from the crashing waves and chills you to the bone. She comes near and it passes. ":
         (adj_pos, adj_neg)
 }
 

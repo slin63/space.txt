@@ -56,7 +56,7 @@ def report_surroundings(mapobj, vision):
     return 0
 
 
-def investigate_menu(surroundings, vision, mapobj):
+def investigate_space_menu(surroundings, vision, mapobj):
     count = 1
     if len(surroundings) == 0:  # When there's nothing around but empty space
         sleep(0.5)
@@ -82,14 +82,14 @@ def investigate_menu(surroundings, vision, mapobj):
     distance_obj = ans_obj[1]
     obj_select = ans_obj[0]
 
-    investigate_obj_details(mapobj, obj_select, distance_obj)
+    investigate_space_details(mapobj, obj_select, distance_obj)
 
     compact_dream_travel(mapobj)
 
     return 0
 
 
-def investigate_obj_details(mapobj, obj, distance):
+def investigate_space_details(mapobj, obj, distance):
     if distance == 0:
         sleep(0.5)
         print make_border()
@@ -97,8 +97,7 @@ def investigate_obj_details(mapobj, obj, distance):
         mapobj.player.encounters.append(obj)
         print make_border()
 
-        if is_landable(obj):
-            land_dialogue(mapobj, obj)
+        approach_scene_dialogue(mapobj, obj)
 
     else:
         sleep(0.5)
@@ -137,24 +136,82 @@ def player_die(world):
 
 # ---------------------------------------------- Area visitations  ---------------------------------------- #
 
+
 def is_landable(obj):
-    # if obj in [Wreckage(), Planet()]:  ## TODO: IMPLEMENT PLANET
-    if obj in [Wreckage()]:
+    if obj in [Wreckage(), Planet()]:
         return True
 
 
-def land_dialogue(mapobj, obj):
-    cprint("Your sensors indicate that a landing is possible. Would you like to dock and explore? [Y/N]: ")
+def approach_scene_dialogue(mapobj, obj):
+    cprint("You grow curious. Do you go in for a closer look? [Y/N]: ")
     ans = raw_input()
     if ans.lower() == 'y':
         obj.scene.player = mapobj.player
-        landing(obj)
+        approach_scene_menu(obj)
     else:
         return 0
 
 
-def landing(obj):
-    cprint("You have landed on %s " % obj.name)
+def approach_scene_menu(obj):
+    if is_landable(obj):
+        cprint("You have landed on %s " % obj.name)
+    else:
+        cprint("You move in for a closer look at %s. " % obj.name)
+    stay = True
+    while stay:
+
+        cprint('The surface is a constant %sK. ' % obj.scene.temperature)
+        cprint('The atmosphere is %s. '% obj.scene.atmosphere)
+
+        cprint("Options:\n\ti - Investigate\n\tl - Leave", 0.01)
+        ans = raw_input()
+
+        if ans.lower() == 'i':
+            investigate_scene_menu(obj)
+        elif ans.lower() == 'l':
+            cprint("You pack your things and leave. ")
+            stay = False
+
+
+def investigate_scene_menu(obj):
+    ## TODO: Should print out a list of all rooms in the scene. Once room is selected, print out objects.
+    ## TODO: Should print out special surface stats e.g. temperature as well
+    scene = obj.scene
+    rooms = obj.scene.rooms
+
+    print_scene_info(scene)
+    if rooms:
+        cprint('Select room to enter: ')
+        ans = raw_input()
+
+        investigate_scene_room(rooms, ans)
+
+    pass
+
+
+def print_scene_info(scene):
+    if scene.rooms:
+        cprint('Your sensors indicate several points of interest: ')
+        return scene.rooms.list_rooms()
+
+
+def investigate_scene_room(rooms, ans):
+    room_contents = rooms.list_room_contents(ans)
+
+    while 1 == 1:
+        cprint('What object do you inspect? [E] to exit ')
+        ans = raw_input()
+
+        if ans.lower() == 'e': break
+        cprint(rooms.get_obj_desc(room_contents, ans))
+
+#
+# a = Wreckage()
+# s = WreckageScene()
+# r = s.rooms
+#
+# landing_menu(a)
+
 
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
@@ -181,10 +238,6 @@ def cardinal_to_dp(card, d_pos):
         "nw": (-d_pos, d_pos),
         "sw": (-d_pos, -d_pos),
         "se": (d_pos, -d_pos)
-        # "ne": (2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
-        # "nw": (-2 * d_pos * sin(pi / 4), 2 * d_pos * cos(pi / 4)),
-        # "sw": (-2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
-        # "se": (2 * d_pos * sin(pi / 4), -2 * d_pos * cos(pi / 4)),
     }
 
     return card_coord[card]
@@ -225,14 +278,3 @@ def dream(world, days=1, dream_chance=15):
 
     return 0
 
-# random_objects = [Artifact]
-# p = Player("P", 100, ["item"], C(0, 0))
-# s = Map(5, random_objects, 0.05, player=p)
-#
-# p.encounters.append(Artifact())
-
-# l = [Artifact()]
-# print Artifact in l
-
-# for e in xrange(5):
-#     dream(s, 500)

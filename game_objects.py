@@ -1,5 +1,6 @@
 from dialogues import *
 from printer import cprint
+from dialogue.scene_dialogues import WreckageRooms
 
 
 # ------------------------------------------------- Player Object --------------------------------------------------- #
@@ -98,7 +99,7 @@ class EggTime(object):
 # ------------------------------------------------- Space Objects --------------------------------------------------- #
 
 class SpaceObject(object):
-    def __init__(self, name=None, desc_vague=None, desc_detailed=None, scene=None):
+    def __init__(self, name=None, scene=None):
         self.name = self.generate_name()
         self.header = self.generate_header()
         self.desc_vague = self.generate_desc_vague()
@@ -151,7 +152,7 @@ class SpaceObject(object):
 
 class Artifact(SpaceObject):
     def __init__(self, name="Artifact"):
-        super(Artifact, self).__init__(name=name)
+        super(Artifact, self).__init__(name=name, scene=ArtifactScene())
 
     def generate_name(self):
         return generate_name(4, 2)
@@ -194,53 +195,50 @@ class Planet(SpaceObject):
         super(Planet, self).__init__(name=name, scene=PlanetScene())
 
     def generate_name(self):
-        return generate_planet_name(name_list)
+        return generate_name_astral_body(name_list)
 
     def generate_header(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_planet_header,))
 
     def generate_desc_vague(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_planet_vague,))
 
     def generate_desc_detailed(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_planet_detailed,))
 
     def generate_footer(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_planet_footer,))
 
 
 class Star(SpaceObject):
     def __init__(self, name="Star"):
-        super(Star, self).__init__(name=name)
+        super(Star, self).__init__(name=name, scene=StarScene())
 
     def generate_header(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_star_header,))
+
+    def generate_name(self):
+        return generate_name_astral_body(name_list)
 
     def generate_desc_vague(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_star_vague,))
 
     def generate_desc_detailed(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_star_detailed,))
 
     def generate_footer(self):
-        ## TODO
-        pass
+        return generate_dialogue((desc_star_footer,))
 
 
 # ------------------------------------------------- Scene Objects --------------------------------------------------- #
 
 class Scene(object):
-    def __init__(self, name=None, player=None):
+    def __init__(self, name=None, player=None, temperature=None, rooms=None, atmosphere=None):
         self.name = name
-        self.environment_objects = ()
         self.player = player
+        self.rooms = rooms
+        self.temperature = temperature
+        self.atmosphere = atmosphere
 
     def __repr__(self):
         return self.player.name
@@ -248,9 +246,39 @@ class Scene(object):
 
 class WreckageScene(Scene):
     def __init__(self):
-        super(WreckageScene, self).__init__(name='WreckageScene')
+        super(WreckageScene, self).__init__(
+            name='WreckageScene',
+            temperature=randint(15, 42),
+            rooms=WreckageRooms(),
+            atmosphere=ch(adj_atmosphere_bad)
+        )
 
 
 class PlanetScene(Scene):
     def __init__(self):
-        super(PlanetScene, self).__init__(name='PlanetScene')
+        super(PlanetScene, self).__init__(
+            name='PlanetScene',
+            temperature=ch([randint(15, 42), randint(500, 800)]),
+            atmosphere=ch(ch([adj_atmosphere_bad, adj_atmosphere_good]))
+        )
+
+
+class ArtifactScene(Scene):
+    def __init__(self):
+        super(ArtifactScene, self).__init__(
+            name='ArtifactScene',
+            temperature=ch([randint(2, 6), randint(2400, 3000)]),
+            atmosphere=ch(adj_atmosphere_bad)
+        )
+
+
+class StarScene(Scene):
+    def __init__(self):
+        super(StarScene, self).__init__(
+            name='StarScene',
+            temperature=randint(3000, 30000),
+            atmosphere=ch(adj_atmosphere_hot)
+        )
+
+
+
