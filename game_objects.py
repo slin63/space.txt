@@ -1,22 +1,34 @@
-from dialogues import *
-from printer import cprint
+from dialogue.dialogues import *
 from dialogue.scene_dialogues import WreckageRooms
+from printer import cprint
 
 
 # ------------------------------------------------- Player Object --------------------------------------------------- #
 
 
 class Player(object):
-    def __init__(self, name, health, encounters=None, position=None, vision=40):
+    def __init__(self, name, health, encounters=None, position=None, vision=100):
         self.name = name
         self.health = health
         self.encounters = encounters
         self.position = position
         self.vision = vision
-        self.dreams = []  # Form: dream string
+        self.height = "5'9"
+        self.age = randint(22000, 24000)  # in days
+        self.age_death = randint(24500, 25000)
+        self.dreams = []
 
     def get_position(self):
         return self.position
+
+    def get_age_years(self):
+        return self.age / 365
+
+    def get_years_till_death(self):
+        days_raw = self.age_death - self.age
+        years = days_raw / 365
+        days = days_raw % 365
+        return years, days
 
     def change_position(self, dx, dy):
         return self.position.d_pos(dx, dy)
@@ -25,6 +37,12 @@ class Player(object):
         dream_string = generate_dialogue((dream_dic,))
         self.dreams.append(dream_string)
         return dream_string
+
+    def should_die(self):
+        if self.age >= self.age_death:
+            return True
+        else:
+            return False
 
     def get_surroundings(self, vision, objects):
         """
@@ -63,22 +81,65 @@ class EggTime(object):
         self.month = randint(1, 12)
         self.day = randint(1, 31)
         self.time_elapsed = 0
+        self.birthday = (6, 9)  # Day: month
+        self.birthdays_had = 0
+        self.christmas = (25, 12)
 
     def change_date(self, days):
+        day_init = self.day
+        month_init = self.month
+        year_init = self.year
+
         if days > 1:
             cprint("%s days have passed." % days)
         else:
             cprint("One day has passed.")
+
         self.day += days
         self.time_elapsed += days
 
         while self.day > 31:
             self.day -= 31
             self.month += 1
+
         while self.month > 12:
             self.month -= 12
             self.year += 1
+
+        self.holidays_passed(day_init, self.day, month_init, self.month, year_init, self.year)
+
         return 0
+
+    def holidays_passed(self, day_i, day_f, month_i, month_f, year_i, year_f):
+        had_birthday = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.birthday)
+        had_christmas = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.christmas)
+
+        if had_birthday:
+            cprint('Your birthday has passed. ', 0.15)
+            self.birthdays_had += 1
+
+        if had_christmas:
+            cprint('Christmas has passed. ', 0.15)
+
+    @staticmethod
+    def check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, holiday):
+        """I am so sorry for whoever has to go back and try to understand this code
+        Also: it doesn't actually work sometimes so idk"""
+        had_holiday = False
+        d_years = year_f - year_i
+        days_holiday = holiday[0] + (holiday[1] * 31)
+        days_init = day_i + (month_i * 31)
+        days_final = day_f + (month_f * 31) + (d_years * 403)
+
+        if days_final < days_init:  # In case the year cycles, so we can still compare dates near end of the year
+            days_final += 403
+
+        # print days_holiday, days_init, days_final
+
+        if days_init <= days_holiday <= days_final:
+            had_holiday = True
+
+        return had_holiday
 
     def print_date(self):
         cprint('It is currently the year %s, day %s of month %s.' % (self.year, self.day, self.month), 0.02)
@@ -89,14 +150,21 @@ class EggTime(object):
         years = elapsed[0]
         months = elapsed[1]
         days = elapsed[2]
-        cprint('It has been %s year(s), %s month(s), and %s day(s) since your epoch. ' % (years, months, days))
+        cprint('It has been %s year(s), %s month(s), and %s day(s) since you began your search. '
+               % (years, months, days))
         return 0
 
     def __repr__(self):
         return 'Year %s, day %s of month %s.' % (self.year, self.day, self.month)
 
+# e = EggTime()
+# e.print_date()
+# for x in xrange(20):
+#     e.change_date(30)
+#     e.print_date()
 
 # ------------------------------------------------- Space Objects --------------------------------------------------- #
+
 
 class SpaceObject(object):
     def __init__(self, name=None, scene=None):

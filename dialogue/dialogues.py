@@ -123,7 +123,16 @@ adj_atmosphere_good = [
 ]
 
 adj_atmosphere_hot = [
-    'blazing', 'boiling', 'scorching', 'unbearable', 'torrid', 'igneous', 'searing', 'calescent', 'scalding'
+    'blazing', 'boiling', 'scorching hot', 'unbearable', 'torrid', 'igneous', 'searing hot', 'calescent', 'scalding hot',
+    'tepid', 'scorched', 'blistered', 'burnt', 'fiery'
+]
+
+adj_temperature_hot = [
+    'tepid', 'scorched', 'blistered', 'burnt', 'fiery'
+]
+
+adj_temperature_cold = [
+    'frozen', 'chilled to the bone', 'numb', 'frigid'
 ]
 
 noun_genders = [
@@ -251,7 +260,7 @@ desc_wreckage_detailed = {
     "It is a free floating rotational station. It is constructed of a central body and %s tubes that shoot off from "
     "its sides like an artery splitting off into countless veins. Its torso is embellished with a massive rotating disk. Although the "
     "station seems long since abandoned, the disk continues to spin wildly. Sections of glass on the disk "
-    "briefly catch the light of the sun and produce a ephemeral and %s burst of fluorescence. Your ships's computers "
+    "briefly catch the light of the sun and produce an ephemeral and %s burst of fluorescence. Your ships's computers "
     "speak to the remaining data stores on the station. Its date of death was %s. ":
         (adj_large, adj_pos, random_number)
 

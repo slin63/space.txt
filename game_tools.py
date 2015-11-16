@@ -2,6 +2,15 @@ from movement import *
 from math import log
 
 
+# ------------------ Introduction
+
+def intro(p, t=0.10):
+    cprint("EGG-SPACE.TXT 0.11.13", t)
+    cprint("You are %s years old. " % p.get_age_years(), t)
+    cprint("In %s years and %s days, you will die. " %
+        (p.get_years_till_death()[0], p.get_years_till_death()[1]), t)
+
+
 # ----------------------------------- Player control functions ---------------------------------------- #
 
 
@@ -9,6 +18,9 @@ def compact_dream_travel(world, days=1, do_dream=True, do_pause=True):
     if do_dream:
         dream(world, days)
     change_date(world, days)
+    world.player.age += days
+    if world.player.should_die():
+        player_die(world, of_age=True)
     if do_pause:
         brief_pause()
     return 0
@@ -25,7 +37,7 @@ def move_player(mapobj):
     return 0
 
 
-def report_status(mapobj):
+def report_ship_status(mapobj):
     sleep(0.5)
     cprint("Fuel = %s, Position = %s" % (mapobj.player.health, mapobj.player.position))
     brief_pause()
@@ -45,11 +57,11 @@ def report_surroundings(mapobj, vision):
         distance = obj[1]
         direction = obj[2]
         if distance == 0:
-            cprint(string=("\t%s. Located on current grid." % count), t=0.022)
+            cprint(string=("\t%s. Located on current grid." % count), t=0.011)
         elif (distance / float(vision)) > 80:
-            cprint(string=("\t%s. %s days away: %s(?)" % (count, str(distance)[0:4], direction)), t=0.022)
+            cprint(string=("\t%s. %s days away: %s(?)" % (count, str(distance)[0:4], direction)), t=0.011)
         else:
-            cprint(string=("\t%s. %s days away: %s" % (count, str(distance)[0:4], direction)), t=0.022)
+            cprint(string=("\t%s. %s days away: %s" % (count, str(distance)[0:4], direction)), t=0.011)
         count += 1
 
     brief_pause()
@@ -107,12 +119,19 @@ def investigate_space_details(mapobj, obj, distance):
 
 
 def report_personal_status(world):
-    if Artifact in world.player.encounters:
+    years_till_dead = world.player.get_years_till_death()
+    cprint("You are currently %s years old. \nYou are %s.\nYour birthday is on September sixth."
+            % (world.player.get_age_years(), world.player.height))
+    if years_till_dead == 1:
+        cprint("You will die in less than one year. ")
+    else:
+        cprint("In %s year(s) and %s day(s), you will die. " % (years_till_dead[0], years_till_dead[1]))
+    world.egg_time.print_time_elapsed()
+    if Artifact() in world.player.encounters:
         cprint("You feel an uneasy darkness settling in your blood. ")
     else:
-        cprint("Nothing new. ")
-    ## TODO
-    pass
+        cprint("You feel hopeless. ")
+    brief_pause()
 
 
 def player_sleep(mapobj):
@@ -123,16 +142,25 @@ def player_sleep(mapobj):
     compact_dream_travel(world=mapobj, days=days)
 
 
-def player_die(world):
+def player_die(world, of_age=False):
     adj1 = ch(ch(adjectives_lists))
     adj2 = ch(ch(adjectives_lists))
     adj3 = ch(ch(adjectives_lists))
+    if of_age:
+        cprint("Your age has overcome you. \nYou keel over and die. ", t=0.15)
+    else:
+        cprint("You decided searching was too much. \nYou end your life. ", t=0.15)
+    brief_pause()
     world.egg_time.print_time_elapsed()
     num_encounters = len(world.player.encounters)
     num_dreams = len(world.player.dreams)
     cprint(string="You had %s encounter(s) and %s dream(s)." % (num_encounters, num_dreams))
+    cprint(string="You had %s birthday(s) in 'EGGSPACE'. " % world.egg_time.birthdays_had)
+    cprint(string="You were %s years old. " % world.player.get_age_years())
+    sleep(0.5)
     cprint(string="Your journey was . . . %s, %s, and %s. " % (adj1, adj2, adj3))
-
+    brief_pause("Enter to exit . . . ")
+    exit()
 
 # ---------------------------------------------- Area visitations  ---------------------------------------- #
 
@@ -154,14 +182,15 @@ def approach_scene_dialogue(mapobj, obj):
 
 def approach_scene_menu(obj):
     if is_landable(obj):
-        cprint("You have landed on %s " % obj.name)
+        cprint("You have landed on %s. " % obj.name)
     else:
         cprint("You move in for a closer look at %s. " % obj.name)
     stay = True
     while stay:
 
-        cprint('The surface is a constant %sK. ' % obj.scene.temperature)
+        cprint('The surface temperature is a constant %sK. ' % obj.scene.temperature)
         cprint('The atmosphere is %s. '% obj.scene.atmosphere)
+        cprint('You feel %s. ' % player_temp_reaction(obj.scene.temperature))
 
         cprint("Options:\n\ti - Investigate\n\tl - Leave", 0.01)
         ans = raw_input()
@@ -205,14 +234,14 @@ def investigate_scene_room(rooms, ans):
         if ans.lower() == 'e': break
         cprint(rooms.get_obj_desc(room_contents, ans))
 
-#
-# a = Wreckage()
-# s = WreckageScene()
-# r = s.rooms
-#
-# landing_menu(a)
 
-
+def player_temp_reaction(temperature):
+    reaction = None
+    if 0 < temperature < 280:
+        reaction = ch(adj_temperature_cold)
+    else:
+        reaction = ch(adj_atmosphere_hot)
+    return reaction
 
 # ----------------------------------- Navigation and movement functions ---------------------------------------- #
 
@@ -272,7 +301,7 @@ def dream(world, days=1, dream_chance=15):
 
         # print dream_list
 
-        dream_string = world.player.dream(dreams_normal)
+        dream_string = world.player.dream(ch(dream_list))
         cprint('You have a dream . . . ', t=0.10)
         cprint(dream_string)
 
