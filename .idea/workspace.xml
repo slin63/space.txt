@@ -5,23 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3de593b1-8dab-4aca-9565-1561917de43e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/sSDSD.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/spacetxt.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dialogue/dialogues.py" afterPath="$PROJECT_DIR$/dialogue/dialogues.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dialogue/scene_dialogues.py" afterPath="$PROJECT_DIR$/dialogue/scene_dialogues.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game_objects.py" afterPath="$PROJECT_DIR$/game_objects.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game_tools.py" afterPath="$PROJECT_DIR$/game_tools.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/printer.py" afterPath="$PROJECT_DIR$/printer.py" />
     </list>
     <ignored path="spacetxt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -94,10 +79,12 @@
       <file leaf-file-name="game_objects.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6870229">
-              <caret line="122" column="5" selection-start-line="122" selection-start-column="5" selection-end-line="122" selection-end-column="5" />
+            <state vertical-scroll-proportion="6.2579618">
+              <caret line="314" column="57" selection-start-line="314" selection-start-column="57" selection-end-line="314" selection-end-column="57" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
+                <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+                <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -107,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/dialogue/dialogues.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
+              <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <marker date="1449467616000" expanded="true" signature="1838:4592" placeholder="..." />
@@ -168,11 +155,11 @@
         <option value="$PROJECT_DIR$/movement.py" />
         <option value="$PROJECT_DIR$/dialogues.py" />
         <option value="$PROJECT_DIR$/dialogue/scene_dialogues.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/printer.py" />
         <option value="$PROJECT_DIR$/dialogue/dialogues.py" />
         <option value="$PROJECT_DIR$/game_tools.py" />
         <option value="$PROJECT_DIR$/game_objects.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -565,12 +552,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/game_objects.py</url>
-          <line>188</line>
+          <line>226</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/game_objects.py</url>
-          <line>279</line>
+          <line>317</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -661,6 +648,8 @@
           <caret line="205" column="0" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -727,6 +716,8 @@
           <caret line="101" column="26" selection-start-line="101" selection-start-column="26" selection-end-line="101" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -778,6 +769,8 @@
           <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -852,6 +845,8 @@
           <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -947,6 +942,8 @@
           <caret line="169" column="0" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -991,6 +988,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1073,37 +1072,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/printer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dialogue/dialogues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1449467616000" expanded="true" signature="1838:4592" placeholder="..." />
-            <marker date="1449467616000" expanded="true" signature="5216:9371" placeholder="..." />
-            <marker date="1449467616000" expanded="true" signature="9407:12702" placeholder="..." />
-            <marker date="1449467616000" expanded="true" signature="12793:13025" placeholder="..." />
-            <marker date="1449467616000" expanded="true" signature="12815:13025" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1118,12 +1092,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dialogue/dialogues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1449467616000" expanded="true" signature="1838:4592" placeholder="..." />
+            <marker date="1449467616000" expanded="true" signature="5216:9371" placeholder="..." />
+            <marker date="1449467616000" expanded="true" signature="9407:12702" placeholder="..." />
+            <marker date="1449467616000" expanded="true" signature="12793:13025" placeholder="..." />
+            <marker date="1449467616000" expanded="true" signature="12815:13025" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/game_objects.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6870229">
-          <caret line="122" column="5" selection-start-line="122" selection-start-column="5" selection-end-line="122" selection-end-column="5" />
+        <state vertical-scroll-proportion="6.2579618">
+          <caret line="314" column="57" selection-start-line="314" selection-start-column="57" selection-end-line="314" selection-end-column="57" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <marker date="1453251449000" expanded="false" signature="3366:3995" placeholder="..." />
+            <marker date="1453251449000" expanded="false" signature="5291:6626" placeholder="..." />
           </folding>
         </state>
       </provider>

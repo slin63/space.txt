@@ -79,30 +79,32 @@ class EggTime(object):
     def __init__(self):
         self.year = randint(2390, 2410)
         self.month = randint(1, 12)
-        self.day = randint(1, 31)
-        self.date = datetime(self.year, self.month, self.day, now.hour, now.minute)
+        self.day = randint(1, 28)
+        self.date = datetime(self.year, 2, 13, 4, 0)
+        # self.date = datetime(self.year, self.month, self.day, 4, 0)
 
         self.time_elapsed = 0
         self.birthday = (6, 9)  # Day: month
-        self.birthdays_had = 0
         self.christmas = (25, 12)
+        self.new_year = (31, 12)
+        self.valentines = (14, 2)
+        self.birthdays_had = 0
 
-    # def __init__(self):
-    #     self.year = randint(2390, 2410)
-    #     self.month = randint(1, 12)
-    #     self.day = randint(1, 31)
-    #     self.time_elapsed = 0
-    #     self.birthday = (6, 9)  # Day: month
-    #     self.birthdays_had = 0
-    #     self.christmas = (25, 12)
 
     def change_date(self, days):
-        if days > 1:
-            cprint("%s days have passed." % days)
-        else:
-            cprint("One day has passed.")
 
-        self.date.timedelta(days=days)
+        def change_date_dialogue(days):
+            if days > 1:
+                cprint("%s days have passed." % days)
+            else:
+                cprint("One day has passed.")
+
+        time_elapsed = timedelta(days=days)
+
+        change_date_dialogue(days)
+        self.holidays_passed(days)  # Time_elapsed is a
+        self.date += time_elapsed
+        self.time_elapsed += days
 
     # def change_date(self, days):
     #     day_init = self.day
@@ -128,7 +130,42 @@ class EggTime(object):
     #     self.holidays_passed(day_init, self.day, month_init, self.month, year_init, self.year)
     #
     #     return 0
-    #
+
+    def holidays_passed(self, time_elapsed):
+        time = self.date
+        print time
+        had_christmas = False
+        had_birthday = False
+        had_new_year = False
+        had_valentines = False
+
+        while time_elapsed != 0:
+            time += timedelta(1)
+            if time.month == self.christmas[1] and time.day == self.christmas[0]:
+                had_christmas = True
+            elif time.month == self.birthday[1] and time.day == self.birthday[0]:
+                had_birthday = True
+            elif time.month == self.new_year[1] and time.day == self.new_year[0]:
+                had_new_year = True
+            elif time.month == self.valentines[1] and time.day == self.valentines[0]:
+                had_valentines = True
+            time_elapsed -= 1
+        print time
+
+        # print "val = %s, chr = %s, bir = %s, ny = %s" % (had_valentines, had_christmas, had_birthday, had_new_year)
+
+        if had_birthday:
+            cprint('Your birthday has passed. ', 0.15)
+            self.birthdays_had += 1
+        if had_christmas:
+            cprint('Christmas has passed. ', 0.15)
+        if had_new_year:
+            cprint('A new year has come. ', 0.15)
+        if had_valentines:
+            cprint("Valentine's has passed. ", 0.15)
+
+        return 0
+
     # def holidays_passed(self, day_i, day_f, month_i, month_f, year_i, year_f):
     #     had_birthday = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.birthday)
     #     had_christmas = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.christmas)
@@ -159,22 +196,23 @@ class EggTime(object):
     #         had_holiday = True
     #
     #     return had_holiday
-    #
-    # def print_date(self):
-    #     cprint('It is currently the year %s, day %s of month %s.' % (self.year, self.day, self.month), 0.02)
-    #     return 0
-    #
-    # def print_time_elapsed(self):
-    #     elapsed = days_to_date(self.time_elapsed)
-    #     years = elapsed[0]
-    #     months = elapsed[1]
-    #     days = elapsed[2]
-    #     cprint('It has been %s year(s), %s month(s), and %s day(s) since you began your search. '
-    #            % (years, months, days))
-    #     return 0
-    #
-    # def __repr__(self):
-    #     return 'Year %s, day %s of month %s.' % (self.year, self.day, self.month)
+
+    def print_date(self):
+        cprint('It is currently the year %s, day %s of month %s.'
+               % (self.date.year, self.date.day, self.date.month), 0.02)
+        return 0
+
+    def print_time_elapsed(self):
+        elapsed = days_to_date(self.time_elapsed)
+        years = elapsed[0]
+        months = elapsed[1]
+        days = elapsed[2]
+        cprint('It has been %s year(s), %s month(s), and %s day(s) since you began your search. '
+               % (years, months, days))
+        return 0
+
+    def __repr__(self):
+        return 'Year %s, day %s of month %s.' % (self.year, self.day, self.month)
 
 # e = EggTime()
 # e.print_date()

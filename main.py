@@ -28,8 +28,14 @@ def main(map_size, density, object_base, debug=False):
             report_surroundings(world, p.vision)
             surroundings = world.player.get_surroundings(vision=p.vision, objects=map_objects)
 
-            cprint("Options:\n\tm - Move\n\tc - Check ship status\n\ti - Investigate objects\n\ts - Survey\n\t"
-                   "p - Check personal status\n\tz - Sleep\n\td - Die", 0.01)
+            cprint("Options:\n\t"
+                   "m - Move\n\t"
+                   "c - Check ship status\n\t"
+                   "i - Investigate objects\n\t"
+                   "s - Survey\n\t"
+                   "p - Check personal status\n\t"
+                   "z - Sleep\n\td - Die", 0.01)
+
             ans = raw_input()
 
             if ans.lower() == 'm':
