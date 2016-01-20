@@ -7,9 +7,29 @@ from math import log
 def intro(p, t=0.10):
     cprint("EGG-SPACE.TXT 0.11.13", t)
     cprint("You are %s years old. " % p.get_age_years(), t)
-    cprint("In %s years and %s days, you will die. " %
-        (p.get_years_till_death()[0], p.get_years_till_death()[1]), t)
+    year = p.get_date_till_death()[0]
+    days = p.get_date_till_death()[1]
+    if year > 1:
+        cprint("In %s years and %s days, you will die. " %
+               (p.get_date_till_death()[0], p.get_date_till_death()[1]), t)
+    else:
+        cprint("In %s year and %s days, you will die. " %
+               (p.get_date_till_death()[0], p.get_date_till_death()[1]), t)
 
+
+def smartinput(prompt, dtype):
+    ans = input(prompt)
+    if dtype is int:
+        try:
+            ans = int(raw_input(prompt))
+        except ValueError:
+            print "Numbers only!"
+    else:
+        ans = raw_input(prompt)
+
+    return ans
+
+# smartinput('test: ', int)
 
 # ----------------------------------- Player control functions ---------------------------------------- #
 
@@ -83,7 +103,7 @@ def investigate_space_menu(surroundings, vision, mapobj):
     for obj in surroundings:
         distance = evaluate_distance(obj[1], vision)
         direction = obj[2]
-        cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.022)
+        cprint(string=("\t%s. %s: %s" % (count, distance, direction)), t=0.012)
         count += 1
 
     print(make_border())
@@ -119,7 +139,7 @@ def investigate_space_details(mapobj, obj, distance):
 
 
 def report_personal_status(world):
-    years_till_dead = world.player.get_years_till_death()
+    years_till_dead = world.player.get_date_till_death()
     cprint("You are currently %s years old. \nYou are %s.\nYour birthday is on September sixth."
             % (world.player.get_age_years(), world.player.height))
     if years_till_dead == 1:
@@ -135,7 +155,6 @@ def report_personal_status(world):
 
 
 def player_sleep(mapobj):
-    ## TODO: IMPLEMENT DREAMING WHEN TRAVELING / SLEEPING
     cprint("How many days would you like to sleep for?: ", t=0.03)
     days = int(raw_input())
     cprint("Zzz . . . ", t=0.20)
@@ -225,7 +244,8 @@ def print_scene_info(scene):
 
 
 def investigate_scene_room(rooms, ans):
-    room_contents = rooms.list_room_contents(ans)
+    room = ans
+    room_contents = rooms.introduce_room_contents(room)
 
     while 1 == 1:
         cprint('What object do you inspect? [E] to exit ')
@@ -233,6 +253,8 @@ def investigate_scene_room(rooms, ans):
 
         if ans.lower() == 'e': break
         cprint(rooms.get_obj_desc(room_contents, ans))
+        brief_pause()
+        rooms.list_room_contents(room)
 
 
 def player_temp_reaction(temperature):
@@ -284,7 +306,7 @@ def change_date(world, days=1):
 # -------------------------------------------- Player Status Functions --------------------------------------------- #
 
 
-def dream(world, days=1, dream_chance=15):
+def dream(world, days=1, dream_chance=5):
     roll = randint(0, 100)
     if days == 2.713:
         dream_chance *= log(days)
@@ -307,3 +329,6 @@ def dream(world, days=1, dream_chance=15):
 
     return 0
 
+# c = WreckageRooms()
+
+# investigate_scene_room(c, 'control room')

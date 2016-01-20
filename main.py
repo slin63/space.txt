@@ -13,14 +13,14 @@ def main(map_size, density, object_base, debug=False):
     intro(p, 0.10)
 
     if debug:
-        print("# DEBUG : \n\tMAP_SIZE = %s x %s\n\tINIT_TIME = %s\n\tNUM_OBJECTS = %s\n\tSURROUNDINGS = %s\n"
-              % (map_size, map_size, init_time, len(map_objects), p.get_surroundings(world.player.vision, map_objects)))
+        print("# DEBUG : \n\tMAP_SIZE = %s x %s\n\tINIT_TIME = %s\n\tNUM_OBJECTS = %s"
+              "\n\tSURROUNDINGS = %s\n\tOBJECTS = %s"
+              % (map_size, map_size, init_time, len(map_objects), p.get_surroundings(world.player.vision, map_objects),
+                 map_objects))
 
     while 1 == 1:
 
         esc = True
-
-        # print map_objects
 
         while esc:
 
@@ -47,11 +47,10 @@ def main(map_size, density, object_base, debug=False):
                 player_sleep(world)
             elif ans.lower() == 'd':
                 player_die(world)
-                brief_pause("Enter to exit . . .")
-                exit()
 
 
-RANDOM_OBJECTS = [Artifact, Wreckage, Planet, Star]
+# RANDOM_OBJECTS = [Artifact, Wreckage, Planet, Star]
+RANDOM_OBJECTS = [Wreckage, Artifact]
 p = Player("P", 100, ["item"], C(0,0))
 s = Map(5, RANDOM_OBJECTS, 0.05, player=p)
 
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     cls()
 
     main(
-        map_size=400,
+        map_size=1000,
         density=0.0001,
         object_base=RANDOM_OBJECTS,
         debug=False,
