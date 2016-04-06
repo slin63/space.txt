@@ -148,7 +148,7 @@ noun_shapes = [
 ]
 
 random_number = [
-    x for x in xrange(2200, 2500)
+    x for x in xrange(2350, 2370)
 ]
 
 # -------- Names
@@ -262,8 +262,17 @@ desc_wreckage_detailed = {
     "station seems long since abandoned, the disk continues to spin wildly. Sections of glass on the disk "
     "briefly catch the light of the sun and produce an ephemeral and %s burst of fluorescence. Your ships's computers "
     "speak to the remaining data stores on the station. Its date of death was %s. ":
-        (adj_large, adj_pos, random_number)
-
+        (adj_large, adj_pos, random_number),
+    "You approach the antiquity. "
+    "It is an abandoned green-ship. It is %s-shaped and completely covered in crystalline silicon solar panels "
+    "and vegetation chambers shielded by alumino-silicate glass. Its computer seems to still be functioning, "
+    "operating the %s solar panels and keeping the vegetation chambers oriented towards a nearby star. Your computer "
+    "detects slight flows of %s water from small leaks in the side, as well as inside the vegetation chambers. "
+    "Condensation collects on the silicate and reflects the light from your ship's spotlights. The station's "
+    "computer begins to recognize your floodlight's intensity and orients its largest vegetation chambers to face you. "
+    "With little to stop them, the plants grow lovely and %s. Your ship speaks to the computer. "
+    "This station died in %s. ":
+        (noun_shapes, adj_pos, adj_pos, adj_large, random_number)
 }
 
 desc_wreckage_footer = {
@@ -342,7 +351,22 @@ dreams_normal = {
         (adj_pos,),
     "You are on a beach. The water is %s. You are an arm's length from the one you love. "
     "A %s wind falls from the crashing waves and chills you to the bone. She comes near and it passes. ":
-        (adj_pos, adj_neg)
+        (adj_pos, adj_neg),
+    "You are driving through the valley where you were raised. The %s hills bound you to your %s home. "
+    "Waves crash on the %s shore and the one you love is next to you. She smiles silently out the window.":
+        (adj_large, adj_pos, adj_pos),
+    "The sky above you is pure and %s ice. A light from above illuminates the glacier and pours %s fluorescence "
+    "onto the ground around you. The ice melts into a hot bath and you relax. You feel %s. ":
+        (adj_strange, adj_pos, adj_pos),
+    "You are walking through the forest. The greenery is lush and %s. The trees extend far beyond your view. "
+    "The %s air of the woods fills your lungs. It is the year 2342. ":
+        (adj_large, adj_pos),
+    "You sit on top of the hill from which you can see your home. There are dozens others waiting with you. "
+    "You pretend to be bothered by their presence, but secretly feel %s. The one you love is somewhere "
+    "far in the distance. ":
+        (adj_pos,),
+    "You are running. Fire fills your lungs and your calves are %s. The pain motivates you. You feel alive. ":
+        (adj_atmosphere_hot,),
 }
 
 dreams_terror = {
