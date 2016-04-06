@@ -80,8 +80,7 @@ class EggTime(object):
         self.year = randint(2390, 2410)
         self.month = randint(1, 12)
         self.day = randint(1, 28)
-        self.date = datetime(self.year, 2, 13, 4, 0)
-        # self.date = datetime(self.year, self.month, self.day, 4, 0)
+        self.date = datetime(self.year, self.month, self.day, 4, 0)
 
         self.time_elapsed = 0
         self.birthday = (6, 9)  # Day: month
@@ -102,7 +101,7 @@ class EggTime(object):
         time_elapsed = timedelta(days=days)
 
         change_date_dialogue(days)
-        self.holidays_passed(days)  # Time_elapsed is a
+        self.holidays_passed(days)
         self.date += time_elapsed
         self.time_elapsed += days
 
@@ -133,7 +132,6 @@ class EggTime(object):
 
     def holidays_passed(self, time_elapsed):
         time = self.date
-        print time
         had_christmas = False
         had_birthday = False
         had_new_year = False
@@ -150,9 +148,6 @@ class EggTime(object):
             elif time.month == self.valentines[1] and time.day == self.valentines[0]:
                 had_valentines = True
             time_elapsed -= 1
-        print time
-
-        # print "val = %s, chr = %s, bir = %s, ny = %s" % (had_valentines, had_christmas, had_birthday, had_new_year)
 
         if had_birthday:
             cprint('Your birthday has passed. ', 0.15)
@@ -166,36 +161,11 @@ class EggTime(object):
 
         return 0
 
-    # def holidays_passed(self, day_i, day_f, month_i, month_f, year_i, year_f):
-    #     had_birthday = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.birthday)
-    #     had_christmas = self.check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, self.christmas)
-    #
-    #     if had_birthday:
-    #         cprint('Your birthday has passed. ', 0.15)
-    #         self.birthdays_had += 1
-    #
-    #     if had_christmas:
-    #         cprint('Christmas has passed. ', 0.15)
-    #
     # @staticmethod
     # def check_holiday(day_i, day_f, month_i, month_f, year_i, year_f, holiday):
     #     """I am so sorry for whoever has to go back and try to understand this code
     #     Also: it doesn't actually work sometimes so idk"""
-    #     had_holiday = False
-    #     d_years = year_f - year_i
-    #     days_holiday = holiday[0] + (holiday[1] * 31)
-    #     days_init = day_i + (month_i * 31)
-    #     days_final = day_f + (month_f * 31) + (d_years * 403)
-    #
-    #     if days_final < days_init:  # In case the year cycles, so we can still compare dates near end of the year
-    #         days_final += 403
-    #
-    #     # print days_holiday, days_init, days_final
-    #
-    #     if days_init <= days_holiday <= days_final:
-    #         had_holiday = True
-    #
-    #     return had_holiday
+    #     ***PRESERVED COMMENT FOR MEMORIES***
 
     def print_date(self):
         cprint('It is currently the year %s, day %s of month %s.'

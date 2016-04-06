@@ -57,15 +57,15 @@ def main(map_size, density, object_base, debug=False):
 
 # RANDOM_OBJECTS = [Artifact, Wreckage, Planet, Star]
 RANDOM_OBJECTS = [Wreckage, Artifact]
-p = Player("P", 100, ["item"], C(0,0))
+p = Player("P", 100, ["item"], C(0, 0))
 s = Map(5, RANDOM_OBJECTS, 0.05, player=p)
 
 if __name__ == "__main__":
     cls()
 
     main(
-        map_size=1000,
-        density=0.0001,
+        map_size=5,
+        density=0.2,
         object_base=RANDOM_OBJECTS,
         debug=False,
     )
